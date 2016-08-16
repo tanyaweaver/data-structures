@@ -60,3 +60,8 @@ def test_linked_list_display():
     list1.push(5)
     list1.push(u'a')
     assert list1.display() == u'(a, 5, 4)'
+
+
+def test_init_optional_param():
+    list1 = LinkedList([1, 2, 3])
+    assert list1.display() == u'(3, 2, 1)'

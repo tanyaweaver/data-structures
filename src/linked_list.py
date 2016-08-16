@@ -14,10 +14,14 @@ class Node(object):
 
 
 class LinkedList(object):
-    def __init__(self):
+    def __init__(self, param=None):
         """Create an instance of LinkedList."""
         self.head_value = None
         self.length_list = 0
+        # self.push(x for x in param if param)
+        if param:
+            for i in param:
+                self.push(i)
 
     def push(self, val):
         """Insert a new node to the head of a linked list."""
@@ -49,7 +53,7 @@ class LinkedList(object):
 
     def display(self):
         """Display a linked list as a tuple."""
-        display_tuple = '('
+        display_tuple = u'('
         current_node = self.head_value
         while current_node:
             if not current_node.next_node:
