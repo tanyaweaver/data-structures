@@ -31,11 +31,20 @@ def test_len():
     assert len(list1) == 1
 
 
-def test_linked_list_size():
+def test_linked_list_size_1():
     list1 = LinkedList()
     list1.push(4)
     list1.push(2)
-    assert list1.size() == 2
+    list1.pop()
+    assert list1.size() == 1
+
+
+def test_linked_list_size_2():
+    list1 = LinkedList()
+    list1.push(4)
+    list1.push(2)
+    list1.remove(4)
+    assert list1.size() == 1
 
 
 def test_linked_list_search_found():
