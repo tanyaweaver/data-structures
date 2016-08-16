@@ -69,8 +69,8 @@ class LinkedList(object):
 
     def display(self):
         """Display a linked list as a tuple."""
-        display_tuple = u'('
         current_node = self.head_node
+        display_tuple = u'(' if current_node is not None else u'()'
         while current_node:
             if not current_node.next_node:
                 display_tuple += str(current_node.value) + ')'
