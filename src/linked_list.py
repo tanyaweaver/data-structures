@@ -52,10 +52,9 @@ class LinkedList(object):
         display_tuple = '('
         current_node = self.head_value
         while current_node:
-            if current_node.next_node == None:
+            if not current_node.next_node:
                 display_tuple += str(current_node.value) + ')'
             else:
                 display_tuple += str(current_node.value) + ', '
             current_node = current_node.next_node
         return display_tuple
-   
