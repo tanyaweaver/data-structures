@@ -4,6 +4,9 @@
 from linked_list import Node, LinkedList
 
 
+import pytest
+
+
 def test_instance_node():
     node1 = Node(3)
     assert node1.value == 3 and node1.next_node is None
@@ -63,13 +66,14 @@ def test_linked_list_display():
     list1 = LinkedList()
     list1.push(4)
     list1.push(5)
-    list1.push(u'a')
-    assert list1.display() == u'(a, 5, 4)'
+    list1.push('a')
+    list1.push('£§')
+    assert list1.display() == '(£§, a, 5, 4)'
 
 
 def test_linked_list_display_empty():
     list1 = LinkedList()
-    assert list1.display() == u'()'
+    assert list1.display() == '()'
 
 
 def test_init_optional_param():
@@ -93,3 +97,9 @@ def test_linked_list_pop():
     list1 = LinkedList([1, 2, 3])
     assert list1.pop().value == 3
     assert len(list1) == 2
+
+
+def test_linked_pop_empty():
+    list1 = LinkedList()
+    with pytest.raises(AttributeError):
+        list1.pop()

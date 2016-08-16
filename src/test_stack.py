@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf -8 -*-
+import pytest
 
 
 from stack import Stack
@@ -24,3 +25,9 @@ def test_push_3():
 def test_pop():
     stack1 = Stack([1, 2, 3])
     assert stack1.pop().value == 3 and len(stack1) == 2
+
+
+def test_pop_empty():
+    stack1 = Stack()
+    with pytest.raises(AttributeError):
+        stack1.pop()

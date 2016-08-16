@@ -27,12 +27,12 @@ class LinkedList(object):
         return self.head_node
 
     def __len__(self):
-        """Return the length of the linked list for the built-in len"""
+        """Return the length of the linked list for the built-in len."""
         return self.length_list
 
     def size(self):
         """Return the length of the linked list."""
-        return self.length_list
+        return len(self)
 
     def search(self, val):
         """Search for a node based on the val."""
@@ -63,6 +63,9 @@ class LinkedList(object):
         return False
 
     def pop(self):
+        """Remove a node from the head, return removed node."""
+        if self.length_list == 0:
+            raise  AttributeError('empty list')
         popped_node = self.head_node
         self.head_node = self.head_node.next_node
         self.length_list -= 1
@@ -71,7 +74,7 @@ class LinkedList(object):
     def display(self):
         """Display a linked list as a tuple."""
         current_node = self.head_node
-        display_tuple = u'(' if current_node is not None else u'()'
+        display_tuple = '(' if current_node is not None else '()'
         while current_node:
             if not current_node.next_node:
                 display_tuple += str(current_node.value) + ')'
