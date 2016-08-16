@@ -20,7 +20,7 @@ def test_instance_linked_list():
 
 def test_linked_list_push():
     list1 = LinkedList()
-    assert list1.push(3) == list1.head_value
+    assert  list1.push(3) == list1.head_value
 
 
 def test_linked_list__len__():
@@ -42,13 +42,18 @@ def test_linked_list_size():
     assert list1.size() == 2
 
 
-def test_linked_list_search():
+def test_linked_list_search_found():
     list1 = LinkedList()
     list1.push(4)
-    result = list1.search(4)
-    assert result.value and result.next_node
+    assert list1.search(4).value == 4
 
-# def test_linked_list_pop():
-#     list1 = LinkedList()
-#     list1.push(4)
-#     assert  list1.pop() == 4 and list1.head_value is None
+
+def test_linked_list_search_notfound():
+    list1 = LinkedList()
+    list1.push(4)
+    assert list1.search(5) is None
+
+
+# def test_linked_list_display():
+
+

@@ -31,4 +31,14 @@ class LinkedList(object):
         return self.length_list
 
     def search(self, val):
-        return None
+        current_node = self.head_value
+        flag = True
+        while current_node is not None and flag:
+            if current_node.value != val:
+                current_node = current_node.next_node
+            else:
+                flag = False
+        return current_node
+
+
+   
