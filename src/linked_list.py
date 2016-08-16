@@ -8,17 +8,12 @@ class Node(object):
         self.value = value
         self.next_node = None
 
-    def define_next_node(self, new_next):
-        """Define the link to the next node."""
-        self.next_node = new_next
-
 
 class LinkedList(object):
     def __init__(self, param=None):
         """Create an instance of LinkedList."""
-        self.head_value = None
+        self.head_node = None
         self.length_list = 0
-        # self.push(x for x in param if param)
         if param:
             for i in param:
                 self.push(i)
@@ -26,11 +21,10 @@ class LinkedList(object):
     def push(self, val):
         """Insert a new node to the head of a linked list."""
         new_node = Node(val)
-        new_node.define_next_node(self.head_value)
-        self.head_value = new_node
+        new_node.next_node = self.head_node
+        self.head_node = new_node
         self.length_list += 1
-        print(new_node)
-        return self.head_value
+        return self.head_node
 
     def __len__(self):
         """Return the length of the linked list."""
@@ -42,7 +36,7 @@ class LinkedList(object):
 
     def search(self, val):
         """Search for a node based on the val."""
-        current_node = self.head_value
+        current_node = self.head_node
         flag = True
         while current_node and flag:
             if current_node.value != val:
@@ -52,12 +46,13 @@ class LinkedList(object):
         return current_node
 
     def remove(self, val):
-        current_node = self.head_value
+        """Remove a node from linked list."""
+        current_node = self.head_node
         previous_node = None
         while current_node is not None:
             if current_node.value == val:
                 if previous_node is None:
-                    self.head_value = current_node.next_node
+                    self.head_node = current_node.next_node
                 else:
                     previous_node.next_node = current_node.next_node
                 self.length_list -= 1
@@ -67,10 +62,15 @@ class LinkedList(object):
                 current_node = current_node.next_node
         return False
 
+    def pop(self):
+        popped_node = self.head_node
+        self.head_node = self.head_node.next_node
+        return popped_node
+
     def display(self):
         """Display a linked list as a tuple."""
         display_tuple = u'('
-        current_node = self.head_value
+        current_node = self.head_node
         while current_node:
             if not current_node.next_node:
                 display_tuple += str(current_node.value) + ')'

@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf -8 -*-
 
-
 import pytest
 
 
@@ -15,12 +14,12 @@ def test_instance_node():
 
 def test_instance_linked_list():
     list1 = LinkedList()
-    assert list1.head_value is None
+    assert list1.head_node is None
 
 
 def test_linked_list_push():
     list1 = LinkedList()
-    assert  list1.push(3) == list1.head_value
+    assert list1.push(3) == list1.head_node
 
 
 def test_linked_list__len__():
