@@ -51,6 +51,22 @@ class LinkedList(object):
                 flag = False
         return current_node
 
+    def remove(self, val):
+        current_node = self.head_value
+        previous_node = None
+        while current_node is not None:
+            if current_node.value == val:
+                if previous_node is None:
+                    self.head_value = current_node.next_node
+                else:
+                    previous_node.next_node = current_node.next_node
+                self.length_list -= 1
+                return True
+            else:
+                previous_node = current_node
+                current_node = current_node.next_node
+        return False
+
     def display(self):
         """Display a linked list as a tuple."""
         display_tuple = u'('
