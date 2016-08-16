@@ -27,7 +27,7 @@ class LinkedList(object):
         return self.head_node
 
     def __len__(self):
-        """Return the length of the linked list."""
+        """Return the length of the linked list for the built-in len"""
         return self.length_list
 
     def size(self):
@@ -65,6 +65,7 @@ class LinkedList(object):
     def pop(self):
         popped_node = self.head_node
         self.head_node = self.head_node.next_node
+        self.length_list -= 1
         return popped_node
 
     def display(self):

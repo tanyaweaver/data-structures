@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf -8 -*-
 
-import pytest
-
-
 from linked_list import Node, LinkedList
 
 
@@ -64,3 +61,15 @@ def test_linked_list_display():
 def test_init_optional_param():
     list1 = LinkedList([1, 2, 3])
     assert list1.display() == u'(3, 2, 1)'
+
+
+def test_linked_list_remove():
+    list1 = LinkedList([1, 2, 3])
+    assert list1.remove(1) is True
+    assert len(list1) == 2
+
+
+def test_linked_list_pop():
+    list1 = LinkedList([1, 2, 3])
+    assert list1.pop().value == 3
+    assert len(list1) == 2
