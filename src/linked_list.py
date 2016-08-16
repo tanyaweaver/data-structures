@@ -33,12 +33,18 @@ class LinkedList(object):
     def search(self, val):
         current_node = self.head_value
         flag = True
-        while current_node is not None and flag:
+        while current_node and flag:
             if current_node.value != val:
                 current_node = current_node.next_node
             else:
                 flag = False
         return current_node
 
-
+    def display(self):
+        display_list = []
+        current_node = self.head_value
+        while current_node:
+            display_list.append(current_node.value)
+            current_node = current_node.next_node
+        return tuple(display_list)
    
