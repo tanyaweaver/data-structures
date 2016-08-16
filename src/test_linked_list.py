@@ -77,10 +77,16 @@ def test_init_optional_param():
     assert list1.display() == u'(3, 2, 1)'
 
 
-def test_linked_list_remove():
+def test_linked_list_remove_present_val():
     list1 = LinkedList([1, 2, 3])
     assert list1.remove(1) is True
     assert len(list1) == 2
+
+
+def test_linked_list_remove_not_present():
+    list1 = LinkedList([1, 2, 3])
+    assert list1.remove(6) is False
+    assert len(list1) == 3
 
 
 def test_linked_list_pop():
