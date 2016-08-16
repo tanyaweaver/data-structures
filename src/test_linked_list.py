@@ -59,6 +59,4 @@ def test_linked_list_display():
     list1.push(4)
     list1.push(5)
     list1.push(u'a')
-    assert list1.display() == (u'a', 5, 4)
-
-
+    assert list1.display() == u'(a, 5, 4)'
