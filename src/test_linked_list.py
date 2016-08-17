@@ -2,9 +2,20 @@
 # -*- coding: utf -8 -*-
 
 from linked_list import Node, LinkedList
-
-
 import pytest
+
+
+LINKED_LIST_INIT = [
+    (1),
+    ('this is a string'),
+    ('cái này là string')
+]
+
+LINKED_LIST_REMOVE = [
+    (1, 2, True),
+    (3, 2, True),
+    (5, 3, False)
+]
 
 
 def test_instance_node():
@@ -12,9 +23,15 @@ def test_instance_node():
     assert node1.value == 3 and node1.next_node is None
 
 
-def test_instance_linked_list():
+def test_empty_instance_linked_list():
     list1 = LinkedList()
     assert list1.head_node is None
+
+
+@pytest.mark.parametrize('value', LINKED_LIST_INIT)
+def test_instance_linked_list(value):
+    list1 = LinkedList(value)
+    assert list1.head_node.value == value
 
 
 def test_linked_list_push():
@@ -81,16 +98,11 @@ def test_init_optional_param():
     assert list1.display() == u'(3, 2, 1)'
 
 
-def test_linked_list_remove_present_val():
+@pytest.mark.parametrize('value, list_length, result', LINKED_LIST_REMOVE)
+def test_linked_list_remove(value, list_length, result):
     list1 = LinkedList([1, 2, 3])
-    assert list1.remove(1) is True
-    assert len(list1) == 2
-
-
-def test_linked_list_remove_not_present():
-    list1 = LinkedList([1, 2, 3])
-    assert list1.remove(6) is False
-    assert len(list1) == 3
+    assert list1.remove(value) is result
+    assert len(list1) == list_length
 
 
 def test_linked_list_pop():

@@ -14,9 +14,11 @@ class LinkedList(object):
         """Create an instance of LinkedList."""
         self.head_node = None
         self.length_list = 0
-        if param:
+        if isinstance(param, list):
             for i in param:
                 self.push(i)
+        elif param is not None:
+            self.push(param)
 
     def push(self, val):
         """Insert a new node to the head of a linked list."""
@@ -65,7 +67,7 @@ class LinkedList(object):
     def pop(self):
         """Remove a node from the head, return removed node."""
         if self.length_list == 0:
-            raise  AttributeError('empty list')
+            raise AttributeError('empty list')
         popped_node = self.head_node
         self.head_node = self.head_node.next_node
         self.length_list -= 1

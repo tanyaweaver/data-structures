@@ -1,9 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf -8 -*-
 import pytest
-
-
 from stack import Stack
+
+PUSH_TEST = [
+    ([1, 2, 3], 3),
+    (['cái này là string', 'resumé'], 2),
+    ([], 0)
+]
 
 
 def test_init_instance():
@@ -11,10 +15,12 @@ def test_init_instance():
     assert stack1._parent.head_node is None
 
 
-def test_push_1():
+@pytest.mark.parametrize('value_list, stack_length', PUSH_TEST)
+def test_push_1(value_list, stack_length):
     stack1 = Stack()
-    stack1.push(1)
-    assert len(stack1) == 1 and stack1._parent.head_node.value == 1
+    for value in value_list:
+        stack1.push(value)
+    assert len(stack1) == stack_length
 
 
 def test_push_3():

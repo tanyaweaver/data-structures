@@ -6,7 +6,8 @@ from linked_list import LinkedList
 
 class Stack(object):
     def __init__(self, param=None):
-        """Create an instance of Stack."""
+        """Create an instance of Stack.
+        This is a composition with linked list."""
         self._parent = LinkedList(param)
 
     def __len__(self):
