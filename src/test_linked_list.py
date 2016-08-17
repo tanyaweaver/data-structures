@@ -17,6 +17,15 @@ LINKED_LIST_REMOVE = [
     (5, 3, False)
 ]
 
+SIZE_TEST = [
+    ([1, 2, 3], 3),
+    (1, 1),
+    ('this is a string', 1),
+    ('mười', 1),
+    (['một', 'năm'], 2),
+    (None, 0)
+]
+
 
 def test_instance_node():
     node1 = Node(3)
@@ -51,20 +60,10 @@ def test_len():
     assert len(list1) == 1
 
 
-def test_linked_list_size_1():
-    list1 = LinkedList()
-    list1.push(4)
-    list1.push(2)
-    list1.pop()
-    assert list1.size() == 1
-
-
-def test_linked_list_size_2():
-    list1 = LinkedList()
-    list1.push(4)
-    list1.push(2)
-    list1.remove(4)
-    assert list1.size() == 1
+@pytest.mark.parametrize('value, result', SIZE_TEST)
+def test_linked_list_size(value, result):
+    list1 = LinkedList(value)
+    assert list1.size() == result
 
 
 def test_linked_list_search_found():
