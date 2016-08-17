@@ -43,15 +43,29 @@ def test_instance_linked_list(value):
     assert list1.head_node.value == value
 
 
-def test_linked_list_push():
+def test_linked_list_push_1():
     list1 = LinkedList()
-    assert list1.push(3) == list1.head_node
+    assert list1.push(3) == list1.head_node and len(list1) == 1
 
 
-def test_linked_list__len__():
+def test_linked_list_push_many():
+    list1 = LinkedList()
+    list1.push(1)
+    list1.push(2)
+    assert list1.push(3) == list1.head_node and len(list1) == 3
+
+
+def test_linked_list__len__1():
     list1 = LinkedList()
     list1.push(4)
     assert list1.__len__() == 1
+
+
+def test_linked_list__len__many():
+    list1 = LinkedList()
+    list1.push(4)
+    list1.push(5)
+    assert list1.__len__() == 2
 
 
 def test_len():
@@ -106,8 +120,7 @@ def test_linked_list_remove(value, list_length, result):
 
 def test_linked_list_pop():
     list1 = LinkedList([1, 2, 3])
-    assert list1.pop().value == 3
-    assert len(list1) == 2
+    assert list1.pop().value == 3 and len(list1) == 2
 
 
 def test_linked_pop_empty():
