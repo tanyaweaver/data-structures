@@ -31,8 +31,13 @@ POP_TABLE = [
     ([1, 2, 3], 3, 2)
 ]
 
+SHIFT_TABLE = [
+    (1, 1, 0),
+    ([1, 2, 3], 1, 2)
+]
 
-def test_initit_Node():
+
+def test_init_Node():
     node1 = Node(5)
     assert node1.value == 5
     assert not node1.previous_node
@@ -68,7 +73,25 @@ def test_append(param, val, length):
 @pytest.mark.parametrize('param, head, length', POP_TABLE)
 def test_pop(param, head, length):
     dll1 = DoublyLL(param)
-    assert dll1.pop().value == head
+    second_to_first = dll1.head_node.next_node
+    assert dll1.pop() == head
+    assert dll1.head_node == second_to_first
     assert len(dll1) == length
 
+def test_empty_pop():
+    dll1 = DoublyLL()
+    with pytest.raises(IndexError):
+        dll1.pop()
 
+@pytest.mark.parametrize('param, tail, length', SHIFT_TABLE)
+def test_shift(param, tail, length):
+    dll1 = DoublyLL(param)
+    second_to_last = dll1.tail_node.previous_node
+    assert dll1.shift() == tail
+    assert dll1.tail_node == second_to_last
+    assert len(dll1) == length
+
+def test_empty_shift():
+    dll1 = DoublyLL()
+    with pytest.raises(IndexError):
+        dll1.shift()

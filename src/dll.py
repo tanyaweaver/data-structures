@@ -29,6 +29,8 @@ class DoublyLL(object):
         new_node.next_node = self.head_node
         if self.head_node:
             self.head_node.previous_node = new_node
+        else:
+            self.tail_node = new_node
         self.head_node = new_node
         self.length_list += 1
         return self
@@ -56,22 +58,41 @@ class DoublyLL(object):
             if self.head_node:
                 self.head_node.previous_node = None
             self.length_list -= 1
-            return popped_node
+            return popped_node.value
+
+    def shift(self):
+            """Remove a node from the tail, return removed node value."""
+            if self.length_list == 0:
+                raise IndexError("can't shift an empty list")
+            shifted_node = self.tail_node
+            self.tail_node = self.tail_node.previous_node
+            if self.tail_node:
+                self.tail_node.next_node = None
+            self.length_list -= 1
+            return shifted_node.value
 
     def remove(self, val):
             """Remove a node from linked list."""
             current_node = self.head_node
-            previous_node = None
             while current_node:
                 if current_node.value == val:
-                    if not previous_node:
-                        self.head_node = current_node.next_node
+                    if not current_node.previous_node:
+                        if current_node.next_node:
+                            self.head_node = current_node.next_node
+                            self.head_node.previous_node = None
+                        else:
+                            self.head_node = None
+                            self.tail_node = None
+                    elif not current_node.next_node:
+                        self.tail_node = current_node.previous_node
+                        self.tail_node.next_node = None
                     else:
-                        previous_node.next_node = current_node.next_node
+                        current_node.previous_node.next_node =\
+                            current_node.next_node
+                        current_node.next_node.previous_node =\
+                            current_node.previous_node
                     self.length_list -= 1
                     return True
                 else:
-                    previous_node = current_node
                     current_node = current_node.next_node
             return False
-   
