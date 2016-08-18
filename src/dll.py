@@ -92,7 +92,6 @@ class DoublyLL(object):
             raise IndexError("Can't remove from an empty list")
         while current_node:
             if current_node.value == val:
-                print('r')
                 if len(self) == 1:
                     self.head_node = None
                     self.tail_node = None
@@ -111,5 +110,4 @@ class DoublyLL(object):
                 return True
             else:
                 current_node = current_node.next_node
-                print('a')
         return False
