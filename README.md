@@ -8,7 +8,7 @@
 ## Testing
 Clone this repo, start create new virtual env, install required plugins using:
 ```
-pip install .[test]]
+pip install .[test]
 ```
 
 To run tests, type in command line:
@@ -36,5 +36,6 @@ my_stack = Stack([1, 2, 3]) # => (3, 2, 1)
 
 To use doubly linked list
 ```python
+from dll import DoublyLL
 my_dll = DoublyLL([1, 2, 3]) # => (3, 2, 1)
 ```
