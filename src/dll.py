@@ -30,11 +30,6 @@ class DoublyLL(object):
         if len(self) == 0:
             self.tail_node = new_node
             self.head_node = new_node
-        elif len(self) == 1:
-            new_node.next_node = self.tail_node
-            self.tail_node = self.head_node
-            self.tail_node.previous_node = new_node
-            self.head_node = new_node
         else:
             self.head_node.previous_node = new_node
             new_node.next_node = self.head_node
@@ -52,10 +47,6 @@ class DoublyLL(object):
         if len(self) == 0:
             self.tail_node = new_node
             self.head_node = new_node
-        elif len(self) == 1:
-            new_node.previous_node = self.tail_node
-            self.head_node.next_node = new_node
-            self.tail_node = new_node
         else:
             self.tail_node.next_node = new_node
             new_node.previous_node = self.tail_node
