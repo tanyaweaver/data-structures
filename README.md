@@ -1,5 +1,8 @@
 # data-structures
-This module contains stack and linked list data structures
+## This module contains implementations of:
+* Linked List
+* Stack
+* Doubly Linked List
 
 # Instructions
 ## Testing
