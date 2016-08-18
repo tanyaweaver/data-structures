@@ -3,6 +3,7 @@
 * Linked List
 * Stack
 * Doubly Linked List
+* Queue
 
 # Instructions
 ## Testing
