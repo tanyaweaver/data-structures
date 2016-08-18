@@ -48,69 +48,69 @@ class DoublyLL(object):
         return self.length_list
 
     def append(self, val):
-            """Insert a new node to the tail of a doubly linked list."""
-            new_node = Node(val)
-            if len(self) == 0:
-                self.tail_node = new_node
-                self.head_node = new_node
-            elif len(self) == 1:
-                new_node.previous_node = self.tail_node
-                self.head_node.next_node = new_node
-                self.tail_node = new_node
-            else:
-                self.tail_node.next_node = new_node
-                new_node.previous_node = self.tail_node
-                self.tail_node = new_node
-            self.length_list += 1
-            return self
+        """Insert a new node to the tail of a doubly linked list."""
+        new_node = Node(val)
+        if len(self) == 0:
+            self.tail_node = new_node
+            self.head_node = new_node
+        elif len(self) == 1:
+            new_node.previous_node = self.tail_node
+            self.head_node.next_node = new_node
+            self.tail_node = new_node
+        else:
+            self.tail_node.next_node = new_node
+            new_node.previous_node = self.tail_node
+            self.tail_node = new_node
+        self.length_list += 1
+        return self
 
     def pop(self):
-            """Remove a node from the head, return removed node value."""
-            if self.length_list == 0:
-                raise IndexError("can't pop off an empty list")
-            popped_node = self.head_node
-            self.head_node = self.head_node.next_node
-            if self.head_node:
-                self.head_node.previous_node = None
-            self.length_list -= 1
-            return popped_node.value
+        """Remove a node from the head, return removed node value."""
+        if self.length_list == 0:
+            raise IndexError("can't pop off an empty list")
+        popped_node = self.head_node
+        self.head_node = self.head_node.next_node
+        if self.head_node:
+            self.head_node.previous_node = None
+        self.length_list -= 1
+        return popped_node.value
 
     def shift(self):
-            """Remove a node from the tail, return removed node value."""
-            if self.length_list == 0:
-                raise IndexError("can't shift an empty list")
-            shifted_node = self.tail_node
-            self.tail_node = self.tail_node.previous_node
-            if self.tail_node:
-                self.tail_node.next_node = None
-            self.length_list -= 1
-            return shifted_node.value
+        """Remove a node from the tail, return removed node value."""
+        if self.length_list == 0:
+            raise IndexError("can't shift an empty list")
+        shifted_node = self.tail_node
+        self.tail_node = self.tail_node.previous_node
+        if self.tail_node:
+            self.tail_node.next_node = None
+        self.length_list -= 1
+        return shifted_node.value
 
     def remove(self, val):
-            """Remove node with val from doubly linked list ."""
-            current_node = self.head_node
-            if not current_node:
-                raise IndexError("Can't remove from an empty list")
-            while current_node:
-                if current_node.value == val:
-                    print('r')
-                    if len(self) == 1:
-                        self.head_node = None
-                        self.tail_node = None
-                    elif not current_node.previous_node:
-                        self.head_node = current_node.next_node
-                        self.head_node.previous_node = None
-                    elif not current_node.next_node:
-                        self.tail_node = current_node.previous_node
-                        self.tail_node.next_node = None
-                    else:
-                        previous = current_node.previous_node
-                        one_after = current_node.next_node
-                        previous.next_node = current_node.next_node
-                        one_after.previous_node =current_node.previous_node
-                    self.length_list -= 1
-                    return True
+        """Remove node with val from doubly linked list ."""
+        current_node = self.head_node
+        if not current_node:
+            raise IndexError("Can't remove from an empty list")
+        while current_node:
+            if current_node.value == val:
+                print('r')
+                if len(self) == 1:
+                    self.head_node = None
+                    self.tail_node = None
+                elif not current_node.previous_node:
+                    self.head_node = current_node.next_node
+                    self.head_node.previous_node = None
+                elif not current_node.next_node:
+                    self.tail_node = current_node.previous_node
+                    self.tail_node.next_node = None
                 else:
-                    current_node = current_node.next_node
-                    print('a')
-            return False
+                    previous = current_node.previous_node
+                    one_after = current_node.next_node
+                    previous.next_node = current_node.next_node
+                    one_after.previous_node = current_node.previous_node
+                self.length_list -= 1
+                return True
+            else:
+                current_node = current_node.next_node
+                print('a')
+        return False
