@@ -9,7 +9,6 @@ class Node(object):
         self.value = value
         self.next_node = None
         self.previous_node = None
-        print(self.value, self.next_node, self.previous_node)
 
 
 class DoublyLL(object):

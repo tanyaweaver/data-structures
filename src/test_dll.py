@@ -119,4 +119,4 @@ def test_remove(param, val, result, length):
 def test_empty_remove():
     dll1 = DoublyLL()
     with pytest.raises(IndexError):
-        dll1.shift()
+        dll1.remove(1)
