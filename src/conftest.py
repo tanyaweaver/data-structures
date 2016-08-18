@@ -10,10 +10,10 @@ from queue import Queue
 
 
 @pytest.fixture(scope='function')
-def my_queue_empty():
+def q0():
     return Queue()
 
 
 @pytest.fixture(scope='function')
-def my_queue_populated():
+def q4():
     return Queue([1, 2, 3, 4])

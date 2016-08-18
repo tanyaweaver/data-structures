@@ -10,12 +10,11 @@ class Queue(object):
     def __init__(self, iterable=None):
         """Initiate an instance of Queue using DoublyLL for composition."""
         self._doublyLL = DoublyLL(iterable)
-        self.head_node = self._doublyLL.head_node
-        self.tail_node = self._doublyLL.tail_node
 
     def enqueue(self, val):
         """Add val to the head of a queue."""
-        return self._doublyLL.push(val)
+        self._doublyLL.push(val)
+        return self
 
     def dequeue(self):
         """Remove and return val from the tail of a queue."""
@@ -26,7 +25,7 @@ class Queue(object):
         try:
             return self._doublyLL.tail_node.value
         except AttributeError:
-            raise IndexError(u"The queue is empty")
+            return None
 
     def size(self):
         """Return size of the queue."""
