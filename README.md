@@ -3,6 +3,7 @@
 * Linked List
 * Stack
 * Doubly Linked List
+* Queue
 
 # Instructions
 ## Testing
@@ -38,4 +39,10 @@ To use doubly linked list
 ```python
 from dll import DoublyLL
 my_dll = DoublyLL([1, 2, 3]) # => (3, 2, 1)
+```
+
+To use queue
+```python
+from queue import Queue
+my_queue = Queue([1, 2, 3]) # => (3, 2, 1)
 ```
