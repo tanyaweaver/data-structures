@@ -18,16 +18,13 @@ class DoublyLL(object):
         self.head_node = None
         self.tail_node = None
         self.length_list = 0
-        if hasattr(iterable, '__iter__'):
+        try:
             for i in iterable:
                 self.push(i)
-        elif iterable:
-            self.push(iterable)
-        # if isinstance(iterable, list):
-        #     for i in iterable:
-        #         self.push(i)
-        # elif iterable is not None:
-        #     self.push(iterable)
+        except TypeError:
+            if iterable is not None:
+                self.push(iterable)
+
 
     def push(self, val):
         """Insert a new node to the head of a doubly linked list."""

@@ -18,21 +18,16 @@ def q0():
 def q4():
     return Queue([1, 2, 3, 4])
 
-TEST_PARAM = [
+
+DEQ1_PARAM = [
     (None),
     (1),
-    ([1, 2, 3])
+    ([1, 2, 3]),
+    ('abc')
 ]
 
 
-@pytest.fixture(scope='function', params=TEST_PARAM)
-def deq(request):
-    for val in request.param:
-        deq = Deque(val)
-    return deq
-
-
-# @pytest.fixture(scope='function')
-# def deq4():
-#     return Deque([1, 2, 3, 4])
-
+@pytest.fixture(scope='function', params=DEQ1_PARAM)
+def deq_1(request):
+    deq1 = Deque(request.param)
+    return deq1
