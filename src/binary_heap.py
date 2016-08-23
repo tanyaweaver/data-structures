@@ -18,7 +18,6 @@ class BinaryHeap(object):
 
     def push(self, value):
         self._list.append(value)
-        # import pdb; pdb.set_trace()
         if len(self._list) > 1:
             child_index = len(self._list) - 1
             if child_index % 2 != 0:
@@ -32,7 +31,7 @@ class BinaryHeap(object):
                 child_index = parent_index
                 if child_index % 2 != 0:
                     parent_index = int((child_index - 1) / 2)
+                elif child_index == 0:
+                    break
                 else:
                     parent_index = int((child_index - 2) / 2)
-                self._list[child_index], self._list[parent_index] =\
-                    self._list[parent_index], self._list[child_index]
