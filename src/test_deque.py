@@ -84,6 +84,20 @@ INIT_TABLE3 = [
     ('¥£', '¥')
 ]
 
+PEEK_TABLE = [
+    ('1', '1'),
+    ('string', 's'),
+    ('$%^', '$'),
+    ([1, 2, 3], 1),
+]
+
+PEEKLEFT_TABLE = [
+    ('1', '1'),
+    ('string', 'g'),
+    ('$%^', '^'),
+    ([1, 2, 3], 3),
+]
+
 
 # Tests for __init__()
 
@@ -282,3 +296,38 @@ def test_popleft1_poped_node(iterable, result):
     """Check that deq.popleft() returns the correct poped value."""
     deq = Deque(iterable)
     assert deq.popleft() == result
+
+
+def test_peek_empty():
+    """Check that peek() raises error for empty deque"""
+    deq = Deque()
+    with pytest.raises(IndexError):
+        deq.peek()
+
+
+@pytest.mark.parametrize('iterable, result', PEEK_TABLE)
+def test_peek(iterable, result):
+    """Check that peek() returns the value at the end of the deque"""
+    deq = Deque(iterable)
+    assert deq.peek() == result
+
+
+def test_peekleft_empty():
+    """Check that peekleft() raises error for empty deque"""
+    deq = Deque()
+    with pytest.raises(IndexError):
+        deq.peekleft()
+
+
+@pytest.mark.parametrize('iterable, result', PEEKLEFT_TABLE)
+def test_peekleft(iterable, result):
+    """Check that peekleft() returns the value at the front of the deque"""
+    deq = Deque(iterable)
+    assert deq.peekleft() == result
+
+
+@pytest.mark.parametrize('iterable, result', INIT_TABLE1)
+def test_size(iterable, result):
+    """Check that size() returns the value at the length the deque"""
+    deq = Deque(iterable)
+    assert deq.size() == result

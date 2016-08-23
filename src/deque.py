@@ -7,11 +7,13 @@ from dll import DoublyLL
 
 
 class Deque(object):
+    """Deque data structure class"""
     def __init__(self, iterable=None):
         """Initiate an instance of Deque using composition."""
         self._doublyLL = DoublyLL(iterable)
 
     def __len__(self):
+        """For the built-in len()"""
         return len(self._doublyLL)
 
     def append(self, val):
@@ -45,3 +47,7 @@ class Deque(object):
         if len(self) == 0:
             raise IndexError("can't peek at an empty deque.")
         return self._doublyLL.head_node.value
+
+    def size(self):
+        """Return size of the deque"""
+        return len(self)
