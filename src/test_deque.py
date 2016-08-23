@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf -8 -*-
+from __future__ import unicode_literals
 import pytest
 
 from deque import Deque
@@ -8,6 +9,8 @@ APPEND_TABLE1 = [
     (7),
     ([1, 2, 3]),
     ('abc'),
+    (1, 1),
+    ('¥£')
 ]
 
 APPEND_TABLE2 = [
@@ -57,7 +60,8 @@ INIT_TABLE1 = [
     (7, 1),
     ('abc', 3),
     ([1, 2, 3], 3),
-    ((1, 2, 3, 4, 5), 5)
+    ((1, 2, 3, 4, 5), 5),
+    ('¥£', 2)
 ]
 
 INIT_TABLE2 = [
@@ -66,7 +70,8 @@ INIT_TABLE2 = [
     ([1, 2, 3], 3),
     ('abc', 'c'),
     ((1, 2, 3, 4, 5), 5),
-    (0, 0)
+    (0, 0),
+    ('¥£', '£')
 ]
 
 INIT_TABLE3 = [
@@ -75,7 +80,8 @@ INIT_TABLE3 = [
     ([1, 2, 3], 1),
     ('abc', 'a'),
     ((1, 2, 3, 4, 5), 1),
-    (0, 0)
+    (0, 0),
+    ('¥£', '¥')
 ]
 
 
@@ -239,7 +245,7 @@ def test_popleft_empty_deq():
      """
     deq = Deque()
     with pytest.raises(IndexError):
-        deq.pop()
+        deq.popleft()
 
 
 @pytest.mark.parametrize('iterable, result', POP_TABLE1)

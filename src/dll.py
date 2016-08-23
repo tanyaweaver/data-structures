@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf -8 -*-
 """Implementation of a doubly linked list"""
+from __future__ import unicode_literals
 
 
 class Node(object):
