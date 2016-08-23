@@ -251,6 +251,16 @@ def test_pop1_poped_node(iterable, result):
     assert deq.pop() == result
 
 
+def test_pop_everything():
+    """Test if head_node is None when all items are popped"""
+    deq = Deque([1, 2, 3, 4])
+    deq.pop()
+    deq.pop()
+    deq.pop()
+    deq.pop()
+    assert deq._doublyLL.head_node is None
+
+
 # Tests for .popleft()
 
 
@@ -291,6 +301,16 @@ def test_popleft2_size(iterable, val, result):
     deq.appendleft(val)
     deq.popleft()
     assert len(deq) == result
+
+
+def test_popleft_everything():
+    """Test if tail_node is None when all items are left popped"""
+    deq = Deque([1, 2, 3, 4])
+    deq.popleft()
+    deq.popleft()
+    deq.popleft()
+    deq.popleft()
+    assert deq._doublyLL.tail_node is None
 
 
 @pytest.mark.parametrize('iterable, result', POP_TABLE6)

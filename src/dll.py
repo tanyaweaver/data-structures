@@ -65,6 +65,8 @@ class DoublyLL(object):
         if self.head_node:
             self.head_node.previous_node = None
         self.length_list -= 1
+        if len(self) == 0:
+            self.tail_node = self.head_node
         return popped_node.value
 
     def shift(self):
@@ -76,6 +78,8 @@ class DoublyLL(object):
         if self.tail_node:
             self.tail_node.next_node = None
         self.length_list -= 1
+        if len(self) == 0:
+            self.head_node = self.tail_node
         return shifted_node.value
 
     def remove(self, val):
