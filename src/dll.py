@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf -8 -*-
 """Implementation of a doubly linked list"""
+from __future__ import unicode_literals
 
 
 class Node(object):
@@ -18,11 +19,12 @@ class DoublyLL(object):
         self.head_node = None
         self.tail_node = None
         self.length_list = 0
-        if isinstance(iterable, list):
+        try:
             for i in iterable:
                 self.push(i)
-        elif iterable is not None:
-            self.push(iterable)
+        except TypeError:
+            if iterable is not None:
+                self.push(iterable)
 
     def push(self, val):
         """Insert a new node to the head of a doubly linked list."""
@@ -63,6 +65,8 @@ class DoublyLL(object):
         if self.head_node:
             self.head_node.previous_node = None
         self.length_list -= 1
+        if len(self) == 0:
+            self.tail_node = self.head_node
         return popped_node.value
 
     def shift(self):
@@ -74,6 +78,8 @@ class DoublyLL(object):
         if self.tail_node:
             self.tail_node.next_node = None
         self.length_list -= 1
+        if len(self) == 0:
+            self.head_node = self.tail_node
         return shifted_node.value
 
     def remove(self, val):

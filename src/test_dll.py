@@ -94,6 +94,15 @@
 #         dll1.pop()
 
 
+# def test_pop_everything():
+#     dll = DoublyLL([1, 2, 3, 4])
+#     dll.pop()
+#     dll.pop()
+#     dll.pop()
+#     dll.pop()
+#     assert dll.tail_node is None
+
+
 # @pytest.mark.parametrize('param, tail, length', SHIFT_TABLE)
 # def test_shift(param, tail, length):
 #     dll1 = DoublyLL(param)
@@ -107,6 +116,15 @@
 #     dll1 = DoublyLL()
 #     with pytest.raises(IndexError):
 #         dll1.shift()
+
+
+# def test_shift_everything():
+#     dll = DoublyLL([1, 2, 3, 4])
+#     dll.shift()
+#     dll.shift()
+#     dll.shift()
+#     dll.shift()
+#     assert dll.head_node is None
 
 
 # @pytest.mark.parametrize('param, val, result, length', REMOVE_TABLE)
