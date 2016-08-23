@@ -38,15 +38,17 @@ class Deque(object):
 
     def peek(self):
         """Peek at a value at the end of the deque."""
-        if len(self) == 0:
+        try:
+            return self._doublyLL.tail_node.value
+        except AttributeError:
             return None
-        return self._doublyLL.tail_node.value
 
     def peekleft(self):
         """Peek at a value at the front of the deque."""
-        if len(self) == 0:
+        try:
+            return self._doublyLL.head_node.value
+        except AttributeError:
             return None
-        return self._doublyLL.head_node.value
 
     def size(self):
         """Return size of the deque"""
