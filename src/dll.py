@@ -26,7 +26,6 @@ class DoublyLL(object):
             if iterable is not None:
                 self.push(iterable)
 
-
     def push(self, val):
         """Insert a new node to the head of a doubly linked list."""
         new_node = Node(val)
