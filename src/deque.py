@@ -39,13 +39,13 @@ class Deque(object):
     def peek(self):
         """Peek at a value at the end of the deque."""
         if len(self) == 0:
-            raise IndexError("can't peek at an empty deque.")
+            return None
         return self._doublyLL.tail_node.value
 
     def peekleft(self):
         """Peek at a value at the front of the deque."""
         if len(self) == 0:
-            raise IndexError("can't peek at an empty deque.")
+            return None
         return self._doublyLL.head_node.value
 
     def size(self):

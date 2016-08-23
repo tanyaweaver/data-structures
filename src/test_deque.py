@@ -85,6 +85,7 @@ INIT_TABLE3 = [
 ]
 
 PEEK_TABLE = [
+    (None, None),
     ('1', '1'),
     ('string', 's'),
     ('$%^', '$'),
@@ -92,6 +93,7 @@ PEEK_TABLE = [
 ]
 
 PEEKLEFT_TABLE = [
+    (None, None),
     ('1', '1'),
     ('string', 'g'),
     ('$%^', '^'),
@@ -298,25 +300,11 @@ def test_popleft1_poped_node(iterable, result):
     assert deq.popleft() == result
 
 
-def test_peek_empty():
-    """Check that peek() raises error for empty deque"""
-    deq = Deque()
-    with pytest.raises(IndexError):
-        deq.peek()
-
-
 @pytest.mark.parametrize('iterable, result', PEEK_TABLE)
 def test_peek(iterable, result):
     """Check that peek() returns the value at the end of the deque"""
     deq = Deque(iterable)
     assert deq.peek() == result
-
-
-def test_peekleft_empty():
-    """Check that peekleft() raises error for empty deque"""
-    deq = Deque()
-    with pytest.raises(IndexError):
-        deq.peekleft()
 
 
 @pytest.mark.parametrize('iterable, result', PEEKLEFT_TABLE)
