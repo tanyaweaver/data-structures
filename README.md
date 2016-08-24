@@ -4,6 +4,8 @@
 * Stack
 * Doubly Linked List
 * Queue
+* Deque
+* Binary Heap
 
 # Instructions
 ## Testing
@@ -45,4 +47,16 @@ To use queue
 ```python
 from queue import Queue
 my_queue = Queue([1, 2, 3]) # => (3, 2, 1)
+```
+
+To use deque
+```python
+from deque import Deque
+my_deque = Deque([1, 2, 3]) # => (3, 2, 1)
+```
+
+To use binary heap
+```python
+from binary_heap import BinaryHeap as BH
+my_bh = BH([1, 2, 3]) # => (3, 2, 1)
 ```
