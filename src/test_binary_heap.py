@@ -40,6 +40,50 @@ PUSH_TABLE = [
 ]
 
 
+POP_TABLE = [
+    ([0, 2, 3, 4, 5], 0, [2, 4, 3, 5]),
+    ([50], 50, []),
+    ([0, 2, 3, 4, 5, 6], 0, [2, 4, 3, 6, 5]),
+    ([3, 5, 7, 9, 10, 11, 12], 3, [5, 9, 7, 12, 10, 11]),
+    ([60, 4, 3, 8, 1, 9, 27, 48, 4], 1, [3, 4, 4, 48, 8, 9, 27, 60]),
+    (3, 3, []),
+]
+
+
+PUSH_POP_TABLE = [
+    ([0, 2, 3, 4, 5], 0, [2, 4, 3, 5]),
+    ([50], 50, []),
+    ([0, 3, 2, 4, 5, 6], 0, [2, 3, 6, 4, 5]),
+    ([3, 7, 5, 9, 10, 11, 12], 3, [5, 7, 11, 9, 10, 12]),
+    ([60, 4, 3, 8, 1, 9, 27, 48, 4], 1, [3, 4, 4, 48, 8, 9, 27, 60]),
+]
+
+
+FIND_PARENT_TABLE = [
+    (7, 3),
+    (100, 49),
+    (83, 41),
+    (0, -1),
+    (-1, -1),
+]
+
+FIND_SMALLER_CHILD_TABLE = [
+    ([0, 2, 3, 4, 5], 0, 1),
+    ([50, 2, 3], 0, 2),
+    ([0, 2, 3, 4, 5, 6], 2, 5),
+    ([3, 5, 7, 9, 10, 11, 12], 1, 3),
+    ([60, 4, 3, 8, 1, 9, 27, 48, 4], 3, 8),
+    ([1, 3, 2], 0, 2),
+]
+
+SWAP_INDEX_TABLE = [
+    ([0, 2, 3, 4, 5], 0, 1, 0, 2),
+    ([50, 2, 3], 1, 2, 50, 3),
+    ([0, 2, 3, 4, 5, 6], 2, 5, 3, 6),
+    ([3, 5, 7, 9, 10, 11, 12], 1, 3, 5, 9),
+]
+
+
 @pytest.mark.parametrize('value, length', INIT_TABLE)
 def test_init_length(value, length):
     bh = BH(value)
@@ -63,6 +107,55 @@ def test_push(iterable, value, index):
     bh = BH(iterable)
     bh.push(value)
     assert bh._list[index] == value
-    # for i in range(len(bh._list)):
-    #     assert bh._list[i] <= bh._list[2 * i + 1] and\
-    #         bh._list[i] <= bh._list[2 * i + 2]
+
+
+def test_pop_empty():
+    bh = BH()
+    with pytest.raises(IndexError):
+        bh.pop()
+
+
+@pytest.mark.parametrize('iterable, popped, new_heap', POP_TABLE)
+def test_pop(iterable, popped, new_heap):
+    bh = BH(iterable)
+    assert bh.pop() == popped
+    assert bh._list == new_heap
+
+
+@pytest.mark.parametrize('iterable, popped, new_heap', PUSH_POP_TABLE)
+def test_push_pop(iterable, popped, new_heap):
+    bh = BH()
+    for i in iterable:
+        bh.push(i)
+    assert bh.pop() == popped
+    assert bh._list == new_heap
+
+
+@pytest.mark.parametrize('child_index, parent_index', FIND_PARENT_TABLE)
+def test__find_parent_index(child_index, parent_index):
+    bh = BH()
+    assert bh._find_parent_index(child_index) == parent_index
+
+
+@pytest.mark.parametrize(
+    'iterable, parent_index, child_index', FIND_SMALLER_CHILD_TABLE
+)
+def test__find_smaller_child_index(iterable, parent_index, child_index):
+    bh = BH()
+    for i in iterable:
+        bh.push(i)
+    assert bh._find_smaller_child_index(parent_index) == child_index
+
+
+@pytest.mark.parametrize(
+    'iterable, index1, index2, val1, val2', SWAP_INDEX_TABLE
+)
+def test__swap_indexes(iterable, index1, index2, val1, val2):
+    bh = BH()
+    for i in iterable:
+        bh.push(i)
+
+    bh._swap_indexes(index1, index2)
+    print(bh._list[index2])
+    assert bh._list[index2] == val1
+    assert bh._list[index1] == val2
