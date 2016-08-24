@@ -86,30 +86,35 @@ SWAP_INDEX_TABLE = [
 
 @pytest.mark.parametrize('value, length', INIT_TABLE)
 def test_init_length(value, length):
+    """Test init by length"""
     bh = BH(value)
     assert len(bh._list) == length
 
 
 @pytest.mark.parametrize('value, first', INIT_FIRST_TABLE)
 def test_init_beginning(value, first):
+    """Verify the first value"""
     bh = BH(value)
     assert bh._list[0] == first
 
 
 @pytest.mark.parametrize('value, last', INIT_LAST_TABLE)
 def test_init_last(value, last):
+    """Verify the last value"""
     bh = BH(value)
     assert bh._list[-1] == last
 
 
 @pytest.mark.parametrize('iterable, value, index', PUSH_TABLE)
 def test_push(iterable, value, index):
+    """Test for push method"""
     bh = BH(iterable)
     bh.push(value)
     assert bh._list[index] == value
 
 
 def test_pop_empty():
+    """Test pop when heap is empty"""
     bh = BH()
     with pytest.raises(IndexError):
         bh.pop()
@@ -117,6 +122,7 @@ def test_pop_empty():
 
 @pytest.mark.parametrize('iterable, popped, new_heap', POP_TABLE)
 def test_pop(iterable, popped, new_heap):
+    """Test for pop method"""
     bh = BH(iterable)
     assert bh.pop() == popped
     assert bh._list == new_heap
@@ -124,6 +130,7 @@ def test_pop(iterable, popped, new_heap):
 
 @pytest.mark.parametrize('iterable, popped, new_heap', PUSH_POP_TABLE)
 def test_push_pop(iterable, popped, new_heap):
+    """Test push and pop at the same time"""
     bh = BH()
     for i in iterable:
         bh.push(i)
@@ -133,6 +140,7 @@ def test_push_pop(iterable, popped, new_heap):
 
 @pytest.mark.parametrize('child_index, parent_index', FIND_PARENT_TABLE)
 def test__find_parent_index(child_index, parent_index):
+    """Test private _find_parent_index func"""
     bh = BH()
     assert bh._find_parent_index(child_index) == parent_index
 
@@ -141,6 +149,7 @@ def test__find_parent_index(child_index, parent_index):
     'iterable, parent_index, child_index', FIND_SMALLER_CHILD_TABLE
 )
 def test__find_smaller_child_index(iterable, parent_index, child_index):
+    """Test private _find_smaller_child_index func"""
     bh = BH()
     for i in iterable:
         bh.push(i)
@@ -151,6 +160,7 @@ def test__find_smaller_child_index(iterable, parent_index, child_index):
     'iterable, index1, index2, val1, val2', SWAP_INDEX_TABLE
 )
 def test__swap_indexes(iterable, index1, index2, val1, val2):
+    """Test private _swap_indexes func"""
     bh = BH()
     for i in iterable:
         bh.push(i)
