@@ -11,8 +11,7 @@ class BinaryHeap(object):
         self._list = []
         try:
             for element in iterable:
-                self._list.append(element)
-            self._list.sort()
+                self.push(element)       
         except TypeError:
             if iterable is not None:
                 self._list.append(iterable)

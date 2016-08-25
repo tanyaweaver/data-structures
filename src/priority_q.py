@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf -8 -*-
 
+#import pdb; pdb.set_trace()
+
 from __future__ import unicode_literals, division
 
 from binary_heap import BinaryHeap
@@ -30,6 +32,14 @@ class Item(object):
         """For < operator."""
         return self.rank < rank
 
+    def __le__(self, rank):
+        """For <= operator."""
+        return self.rank <= rank
+
+    def __ge__(self, rank):
+        """For >= operator."""
+        return self.rank >= rank
+
 
 class PriorityQ(object):
     """
@@ -43,27 +53,27 @@ class PriorityQ(object):
     def __init__(self, iterable=None):
         """
         Initiate an instance of PriorityQueue with the option to pass in
-        an iterable. Two conditions must be true for the iterable:
-        the type of iterable is list and each item in the iterable
+        an iterable (list or tuple only). Each item in the iterable
         must be an instance of class <Item>.
         """
-        #try:
-        # if not isinstance(iterable, list):
-        #     raise TypeError('iterable must be a list')
-        #     for item in iterable:
-        #         if not isinstance(item, Item):
-        #             raise TypeError
-        # except TypeError:
-        #     raise TypeError('iterable must be list of instances of class Item')
-        self._bh = BinaryHeap(iterable)
-        #     self.insert(item)
+        if iterable is not None:
+            try:
+                for item in iterable:
+                    if not isinstance(item, Item):
+                        raise TypeError
+            except TypeError:
+                raise TypeError('iterable must be list of instances'
+                                ' of class Item')
+            self._bh = BinaryHeap(iterable)
+        else:
+            self._bh = BinaryHeap()
 
     def pop(self):
         """Removes and returns the most important item from the queue."""
         return self._bh.pop().value
 
     def insert(self, item):
-        """Insert an item into a queue."""
+        """Insert an instance of class Item into a queue."""
         if not isinstance(item, Item):
             raise TypeError('<item> must be an instance of class Item')
         return self._bh.push(item)
