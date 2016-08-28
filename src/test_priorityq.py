@@ -17,85 +17,39 @@ RANK_VALUE = [
     ((1, 5), (1, 4), (1, 3), (1, 2), (1, 1))
 ]
 
-CREATED_ITEMS_DISPLAYED = [
-    [(1, 1)],
-    [(1, 1), (1, 2)],
-    [(1, 2), (1, 1)],
-    [(2, 3), (1, 2), (1, 1)],
-    [(3, 1), (1, 2), (5, 1), (8, 1)],
-    [(5, 1), (4, 2), (3, 3), (2, 4), (1, 5)],
-    [(1, 5), (1, 4), (1, 3), (1, 2), (1, 1)]
-]
-
-
-def item_create(l):
-    list_of_lists = []
-    for tuple_ in l:
-        list_items = []
-        for pair in tuple_:
-            rank, value = pair[0], pair[1]
-            item = Item(rank, value)
-            list_items.append(item)
-        list_of_lists.append(list_items)
-    return list_of_lists
-
-
-def created_items_display_list(list_of_lists):
-    list_for_display = []
-    for list_ in list_of_lists:
-        list_each_for_display = []
-        for item in list_:
-            list_each_for_display.append((item.rank, item.value))
-        list_for_display.append(list_each_for_display)
-    return(list_for_display)
-
-
-ITEM_RANK_VALUE = item_create(RANK_VALUE)
-
-
-# @pytest.fixture(scope="session")
-# def pq():
-#     pq = PQ(ITEM_RANK_VALUE)
-#     return pq
-
 SIZE1 = [1, 2, 2, 3, 4, 5, 5]
 
 SIZE2 = [0, 1, 1, 2, 3, 4, 4]
 
 SIZE3 = [2, 3, 3, 4, 5, 6, 6]
 
-INIT_SIZE = zip(ITEM_RANK_VALUE, SIZE1)
+INIT_SIZE = zip(RANK_VALUE, SIZE1)
 
-POP_SIZE = zip(ITEM_RANK_VALUE, SIZE2)
+POP_SIZE = zip(RANK_VALUE, SIZE2)
 
 POP = [1, 1, 2, 2, 2, 5, 5]
 
-POP_ITEM = zip(ITEM_RANK_VALUE, POP)
+POP_ITEM = zip(RANK_VALUE, POP)
 
-INSERT_SIZE = zip(ITEM_RANK_VALUE, SIZE3)
+INSERT_SIZE = zip(RANK_VALUE, SIZE3)
 
 H_RANK = [(1, 1), (1, 1), (1, 2), (1, 2), (1, 2), (1, 5), (1, 5)]
 
-INIT_HIGHEST_RANK = zip(ITEM_RANK_VALUE, H_RANK)
+INIT_HIGHEST_RANK = zip(RANK_VALUE, H_RANK)
 
 L_RANK = [(1, 1), (1, 2), (1, 1), (1, 1), (8, 1), (3, 3), (1, 1)]
 
-INIT_LOWEST_RANK = zip(ITEM_RANK_VALUE, L_RANK)
+INIT_LOWEST_RANK = zip(RANK_VALUE, L_RANK)
 
 INDEX = [1, 2, 2, 1, 1, 2, 5]
 
-INSERT_HIGH_INDEX = zip(ITEM_RANK_VALUE, INDEX)
+INSERT_HIGH_INDEX = zip(RANK_VALUE, INDEX)
 
 RANK_ERROR = ['a', '123', [1, 2], (1, 2), {"1": 1}, 1.234]
 
 RANKS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 INSERT_ERROR = [(1, 2), 'a', [1, 2, 3], 1234, {'A': 123}]
-
-
-def test_item_create():
-    items_created = created_items_display_list(item_create(RANK_VALUE))
-    assert items_created == CREATED_ITEMS_DISPLAYED
 
 
 def test_init_empty():
@@ -204,7 +158,7 @@ def test_class_item_eq_method(rank):
 
 def test_init_type_error():
     with pytest.raises(TypeError):
-        pq = PQ([(1, 2), 'a', [1, 2, 3], 1234])
+        PQ([(1, 2), 'a', [1, 2, 3], 1234])
 
 
 @pytest.mark.parametrize('value', INSERT_ERROR)

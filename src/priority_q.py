@@ -54,17 +54,22 @@ class PriorityQ(object):
         """
         Initiate an instance of PriorityQueue with the option to pass in
         an iterable (list or tuple only). Each item in the iterable
-        must be an instance of class <Item>.
+        must be a tuple with rank and value: (rank, val).
         """
         if iterable is not None:
             try:
+                item_list = []
                 for item in iterable:
-                    if not isinstance(item, Item):
+                    if not isinstance(item, tuple) and len(item) != 2:
                         raise TypeError
+                    else:
+                        item_list.append(Item(item[0], item[1]))
             except TypeError:
-                raise TypeError('iterable must be list of instances'
-                                ' of class Item')
-            self._bh = BinaryHeap(iterable)
+                raise TypeError('iterable must be a list of tuples.'
+                                'Each tuple has to have 2 items in it:'
+                                ' <rank> and <value>. e.g., [(1, 2), (3, 4)]'
+                                'or [(1, 2),]')
+            self._bh = BinaryHeap(item_list)
         else:
             self._bh = BinaryHeap()
 
