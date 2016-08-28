@@ -6,6 +6,7 @@
 * Queue
 * Deque
 * Binary Heap
+* Priority Queue
 
 # Instructions
 ## Testing
@@ -59,4 +60,9 @@ To use binary heap
 ```python
 from binary_heap import BinaryHeap as BH
 my_bh = BH([1, 2, 3]) # => (3, 2, 1)
+```
+To use priority queue
+```python
+from priority_q import PriorityQueue as PQ
+my_pq = PQ([(1, 2), (3, 4)]) 
 ```

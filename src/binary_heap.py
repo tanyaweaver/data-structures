@@ -11,15 +11,14 @@ class BinaryHeap(object):
         self._list = []
         try:
             for element in iterable:
-                self._list.append(element)
-            self._list.sort()
+                self.push(element)       
         except TypeError:
             if iterable is not None:
                 self._list.append(iterable)
 
     def _find_parent_index(self, child_index):
         """Returns parent's index of a value given its index"""
-        return (child_index - 1) // 2 
+        return (child_index - 1) // 2
 
     def _find_smaller_child_index(self, parent_index):
         """Returns a value's smaller child's index given its index,
