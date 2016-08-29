@@ -6,6 +6,7 @@
 * Queue
 * Deque
 * Binary Heap
+* Graph
 
 # Instructions
 ## Testing
@@ -59,4 +60,11 @@ To use binary heap
 ```python
 from binary_heap import BinaryHeap as BH
 my_bh = BH([1, 2, 3]) # => (3, 2, 1)
+```
+
+To use graph
+```python
+from graph import Graph
+my_gr = Graph([1, 2, 3]) # => {'1': [], '2': [], '3': [])
+my_gr.add_edge((1, 2), (2, 3), (3, 2)) # => {'1': ['2'], '2': ['3'], '3': ['2'])
 ```

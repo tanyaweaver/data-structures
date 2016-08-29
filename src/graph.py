@@ -55,7 +55,7 @@ class Graph(object):
 
     def del_edge(self, n1, n2):
         """Delete a edge from n1 to n2"""
-        try: 
+        try:
             self._dict[str(n1)].remove(str(n2))
         except KeyError:
             raise ValueError('No such edge exists')
@@ -82,6 +82,7 @@ class Graph(object):
     def adjacent(self, n1, n2):
         """Check if 2 node has connection"""
         try:
-            return str(n2) in self._dict[str(n1)] or str(n1) in self._dict[str(n2)]
+            return str(n2) in self._dict[str(n1)] or\
+             str(n1) in self._dict[str(n2)]
         except KeyError:
             raise ValueError('Node not in the graph')

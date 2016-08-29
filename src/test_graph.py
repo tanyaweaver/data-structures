@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf -8 -*-
 
-from __future__ import unicode_literals, division
+from __future__ import unicode_literals
 import pytest
 from graph import Graph
 
@@ -201,6 +201,7 @@ def test_del_non_ex_node():
     gr = Graph([1, 2, 3, 4])
     with pytest.raises(KeyError):
         gr.del_node(10)
+
 
 @pytest.mark.parametrize('iterable', INIT_VAL)
 def test_del_node_key(iterable):
