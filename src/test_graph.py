@@ -49,6 +49,50 @@ ADD_EDGE_ALREADY_EXIST = [
     ),
 ]
 
+HAS_NODE_TABLE = [
+    ([2, 3, 4], 4, True),
+    ([2, 3, 4], 5, False),
+    ('something', 2, False),
+    (3, 4, False)
+]
+
+NEIGHBORS_TABLE = [
+    ([2, 3, 4], 4, 5),
+    (None, 4, 5),
+    ([2, 3], 4, 5),
+    ('something', 4, 5)
+]
+
+NEIGHBORS_ERROR_TABLE = [
+    ([3, 4, 5], 6),
+    (['something'], 6),
+    ([100], 0),
+    (None, 6),
+]
+
+ADJACENT_TABLE = [
+    ([3, 4, 5], 4, 5, False),
+    (['something', 'else'], 'something', 'else', False)
+]
+
+ADJACENT_TABLE1 = [
+    ([2, 3, 4], 3, 4, True),
+    (None, 3, 4, True),
+]
+
+ADJACENT_ERROR_TABLE = [
+    ([2, 3, 4], 5, 6),
+    (None, 'anything', 'random'),
+    ([], 'a', 'b'),
+]
+
+DEL_EDGE_ERROR = [
+    ([2, 3, 4], 5),
+    ([], 'empty'),
+    (None, 'something'),
+    (['something', 'else', 4], 'random'),
+]
+
 
 def test_init():
     gr = Graph()
@@ -182,3 +226,64 @@ def test_del_node_edges():
     gr.del_node(100)
     for edge in gr.edges():
         assert '100' not in edge
+
+
+def test_del_edge():
+    g = Graph()
+    g.add_edge(3, 4)
+    g.add_edge(3, 5)
+    g.add_edge(3, 6)
+    g.add_edge(7, 8)
+    g.del_edge(7, 8)
+    assert g.edges() == [
+            ('3', '4'),
+            ('3', '5'),
+            ('3', '6'),
+    ]
+
+
+@pytest.mark.parametrize('iterable, n', DEL_EDGE_ERROR)
+def test_del_edge_error(iterable, n):
+    g = Graph(iterable)
+    with pytest.raises(ValueError):
+        g.del_edge(n, 'random')
+
+
+@pytest.mark.parametrize('iterable, n, result', HAS_NODE_TABLE)
+def test_has_node(iterable, n, result):
+    g = Graph(iterable)
+    assert g.has_node(n) == result
+
+
+@pytest.mark.parametrize('iterable, n1, n2', NEIGHBORS_TABLE)
+def test_neighbors(iterable, n1, n2):
+    g = Graph(iterable)
+    g.add_edge(n2, n1)
+    assert str(n2) in g.neighbors(n1)
+
+
+@pytest.mark.parametrize('iterable, n', NEIGHBORS_ERROR_TABLE)
+def test_neighbors_error(iterable, n):
+    g = Graph(iterable)
+    with pytest.raises(ValueError):
+        g.neighbors(n)
+
+
+@pytest.mark.parametrize('iterable, n1, n2, result', ADJACENT_TABLE)
+def test_adjacent_false(iterable, n1, n2, result):
+    g = Graph(iterable)
+    assert g.adjacent(n1, n2) == result
+
+
+@pytest.mark.parametrize('iterable, n1, n2, result', ADJACENT_TABLE1)
+def test_adjacent(iterable, n1, n2, result):
+    g = Graph(iterable)
+    g.add_edge(n1, n2)
+    assert g.adjacent(n1, n2) == result
+
+
+@pytest.mark.parametrize('iterable, n1, n2', ADJACENT_ERROR_TABLE)
+def test_adjacent_error(iterable, n1, n2):
+    g = Graph(iterable)
+    with pytest.raises(ValueError):
+        g.adjacent(n1, n2)
