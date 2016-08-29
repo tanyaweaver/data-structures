@@ -24,7 +24,7 @@ ADD_NODE = [
    (10, 20, 30, 10),
    ('a', 'b', 'a'),
    ('[1, 2]', '[1, 2]'),
-   (11, 'a')
+   ([1, 2, 3], {'a': 3}),
 ]
 
 ADD_LENGTH = [2, 7, 3, 3, 4]
@@ -78,9 +78,9 @@ def test_nodes(iterable):
     gr = Graph(iterable)
     try:
         for key in iterable:
-            assert key in gr._dict.keys()
+            assert str(key) in gr._dict.keys()
     except TypeError:
-        assert iterable in gr._dict.keys()
+        assert str(iterable) in gr._dict.keys()
 
 
 def test_nodes_empty():
@@ -94,7 +94,7 @@ def test_add_edges(iterable, edges):
     for edge in edges:
         gr.add_edge(edge[0], edge[1])
     for edge in edges:
-            assert edge[1] in gr._dict[edge[0]]
+            assert str(edge[1]) in gr._dict[str(edge[0])]
 
 
 @pytest.mark.parametrize('iterable, edges', ADD_EDGE)
@@ -124,7 +124,7 @@ def test_edges(iterable, edges):
     for edge in edges:
         gr.add_edge(edge[0], edge[1])
     for edge in edges:
-        assert edge in gr.edges()
+        assert (str(edge[0]), str(edge[1])) in gr.edges()
 
 
 @pytest.mark.parametrize('iterable, add_node', ITER_ADD_NODE)
@@ -133,7 +133,7 @@ def test_add_node_key(iterable, add_node):
     for node in add_node:
         gr.add_node(node)
     for node in add_node:
-        assert node in list(gr._dict.keys())
+        assert str(node) in list(gr._dict.keys())
 
 
 @pytest.mark.parametrize('iterable, add_node, length', ITER_ADD_LEN)
@@ -163,7 +163,7 @@ def test_del_node_key(iterable):
     gr = Graph(iterable)
     gr.add_node(100)
     gr.del_node(100)
-    assert 100 not in gr._dict.keys()
+    assert '100' not in gr._dict.keys()
 
 
 @pytest.mark.parametrize('iterable, length', INIT_LENGTH)
@@ -181,4 +181,4 @@ def test_del_node_edges():
     gr.add_edge(2, 100)
     gr.del_node(100)
     for edge in gr.edges():
-        assert 100 not in edge
+        assert '100' not in edge

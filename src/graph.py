@@ -11,18 +11,18 @@ class Graph(object):
         self._dict = {}
         try:
             for item in iterable:
-                self._dict.setdefault(item, [])
+                self._dict.setdefault(str(item), [])
         except TypeError:
             if iterable is not None:
-                self._dict.setdefault(iterable, [])
+                self._dict.setdefault(str(iterable), [])
 
     def add_node(self, n):
-        return self._dict.setdefault(n, [])
+        return self._dict.setdefault(str(n), [])
 
     def add_edge(self, n1, n2):
-        new_node = self._dict.setdefault(n1, [])
-        if n2 not in new_node:
-            new_node.append(n2)
+        new_node = self._dict.setdefault(str(n1), [])
+        if str(n2) not in new_node:
+            new_node.append(str(n2))
         else:
             raise ValueError('This edge already exists.')
 
@@ -39,11 +39,11 @@ class Graph(object):
 
     def del_node(self, n):
         # import pdb; pdb.set_trace()
-        if n in self._dict:
-            del self._dict[n]
+        if str(n) in self._dict:
+            del self._dict[str(n)]
             for key in self._dict:
-                if n in self._dict[key]:
+                if str(n) in self._dict[key]:
                     node_value = self._dict[key]
-                    node_value.remove(n)
+                    node_value.remove(str(n))
         else:
             raise KeyError('No such node in the graph.')
