@@ -143,9 +143,12 @@ class Graph(object):
 
     def breadth_first_traversal_temp(self, start):
         path_list = [start]
+        pending_list = [start]
         current_node = start
-        while len(self.neighbors(current_node)) != 0:
-            for n in neighbors:
+        while len(pending_list) != 0:
+            for n in self.neighbors(current_node):
                 if n not in path_list:
                     path_list.append(n)
-                
+                    pending_list.append(n)
+            current_node = pending_list.pop(0)
+        return path_list
