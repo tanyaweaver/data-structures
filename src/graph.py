@@ -14,10 +14,11 @@ class Graph(object):
                 try:
                     self._dict.setdefault(item, [])
                 except TypeError as e:
-                    raise TypeError(
+                    e.args = (
                         'Node must be an immutable data'
-                        ' type (string, integer, tuple, etc.)'
-                    ).with_traceback(e.__traceback__)
+                        ' type (string, integer, tuple, etc.)',
+                        )
+                    raise
         except TypeError:
             if iterable is not None:
                 self._dict.setdefault(iterable, [])
@@ -27,10 +28,11 @@ class Graph(object):
         try:
             self._dict.setdefault(n, [])
         except TypeError as e:
-            raise TypeError(
+                    e.args = (
                         'Node must be an immutable data'
-                        ' type (string, integer, tuple, etc.)'
-                    ).with_traceback(e.__traceback__)
+                        ' type (string, integer, tuple, etc.)',
+                        )
+                    raise
 
     def add_edge(self, n1, n2):
         """Add a edge from n1 to n2"""
@@ -68,9 +70,10 @@ class Graph(object):
     def del_edge(self, n1, n2):
         """Delete a edge from n1 to n2"""
         try:
-            self._dict[(n1)].remove(n2)
-        except KeyError:
-            raise ValueError('No such edge exists')
+            self._dict[n1].remove(n2)
+        except KeyError as e:
+            e.args = ('No such edge exists',)
+            raise
 
     def has_node(self, n):
         """Check if n is a node of graph"""
@@ -81,53 +84,33 @@ class Graph(object):
 
     def neighbors(self, n):
         """Return a list of nodes that have edge connect to n"""
-        if n in self._dict:
+        try:
             return self._dict[n]
-        else:
-            raise KeyError('Node not in the graph')
+        except KeyError as e:
+            e.agrs = ('Node not in the graph',)
+            raise
 
     def adjacent(self, n1, n2):
         """Check if 2 node has connection"""
         try:
             return n2 in self._dict[n1] or\
              n1 in self._dict[n2]
-        except KeyError:
-            raise ValueError('Node not in the graph')
-
-### Graph traversal
+        except KeyError as e:
+            e.agrs = ('Node not in the graph',)
+            raise
 
     def depth_first_traversal(self, start):
         """
         Perform a full depth-traversal of the graph beggining at start.
         Return full visited path when traversal is complete.
+        Raise a ValueError, if the graph is empty.
         """
-        path_list = [start]
-        current_node = start
-        parent_list = []
-        flag1 = True
-        flag2 = True
-        while flag1:
-            neighbor = self.neighbors(current_node)
-            while flag2 and len(neighbor) != 0:
-                for n in neighbor:
-                    if n not in path_list:
-                        path_list.append(n)
-                        parent_list.append(current_node)
-                        current_node = n
-                        neighbor = self.neighbors(current_node)
-                        break
-                if len(parent_list) != 0:
-                    current_node = parent_list.pop()
-                    flag2 = False
-                else:
-                    flag1 = False
-        return path_list
-
-    def depth_first_traversal_temp(self, start):
+        if self._dict == {}:
+            raise ValueError("Can't traverse an empty graph.")
         path_list = [start]
         visited_list = [start]
         current_node = start
-        while len(self.neighbors(current_node)) != 0:
+        while current_node:
             for n in self.neighbors(current_node):
                 if n not in path_list:
                     path_list.append(n)
@@ -136,19 +119,30 @@ class Graph(object):
                     break
             else:
                 try:
-                    current_node = visited_list.pop()
+                    visited_list.pop()
+                    current_node = visited_list[-1]
                 except IndexError:
                     break
         return path_list
 
-    def breadth_first_traversal_temp(self, start):
+    def breadth_first_traversal(self, start):
+        """
+        Perform a full breadth-traversal of the graph beggining at start.
+        Return full visited path when traversal is complete.
+        Raise a ValueError, if the graph is empty.
+        """
+        if self._dict == {}:
+            raise ValueError("Can't traverse an empty graph.")
         path_list = [start]
-        pending_list = [start]
+        pending_list = []
         current_node = start
-        while len(pending_list) != 0:
+        while current_node:
             for n in self.neighbors(current_node):
                 if n not in path_list:
                     path_list.append(n)
                     pending_list.append(n)
-            current_node = pending_list.pop(0)
+            try:
+                current_node = pending_list.pop(0)
+            except IndexError:
+                break
         return path_list
