@@ -12,26 +12,32 @@ class Graph(object):
         try:
             for item in iterable:
                 try:
-                    self._dict.setdefault((item), [])
+                    self._dict.setdefault(item, [])
                 except TypeError as e:
                     raise TypeError(
                         'Node must be an immutable data'
-                        ' type (string, integer, tuple, etc.'
+                        ' type (string, integer, tuple, etc.)'
                     ).with_traceback(e.__traceback__)
         except TypeError:
             if iterable is not None:
-                self._dict.setdefault((iterable), [])
+                self._dict.setdefault(iterable, [])
 
     def add_node(self, n):
         """Add a node to graph"""
-        return self._dict.setdefault((n), [])
+        try:
+            self._dict.setdefault(n, [])
+        except TypeError as e:
+            raise TypeError(
+                        'Node must be an immutable data'
+                        ' type (string, integer, tuple, etc.)'
+                    ).with_traceback(e.__traceback__)
 
     def add_edge(self, n1, n2):
         """Add a edge from n1 to n2"""
-        new_node = self._dict.setdefault((n1), [])
-        self._dict.setdefault((n2), [])
+        new_node = self._dict.setdefault(n1, [])
+        self._dict.setdefault(n2, [])
         if (n2) not in new_node:
-            new_node.append((n2))
+            new_node.append(n2)
         else:
             raise ValueError('This edge already exists.')
 
@@ -51,24 +57,24 @@ class Graph(object):
     def del_node(self, n):
         """Delete a node from graph"""
         if (n) in self._dict:
-            del self._dict[(n)]
+            del self._dict[n]
             for key in self._dict:
                 if (n) in self._dict[key]:
                     node_value = self._dict[key]
-                    node_value.remove((n))
+                    node_value.remove(n)
         else:
             raise KeyError('No such node in the graph.')
 
     def del_edge(self, n1, n2):
         """Delete a edge from n1 to n2"""
         try:
-            self._dict[(n1)].remove((n2))
+            self._dict[(n1)].remove(n2)
         except KeyError:
             raise ValueError('No such edge exists')
 
     def has_node(self, n):
         """Check if n is a node of graph"""
-        if (n) in self._dict.keys():
+        if n in self._dict.keys():
             return True
         else:
             return False
@@ -76,15 +82,15 @@ class Graph(object):
     def neighbors(self, n):
         """Return a list of nodes that have edge connect to n"""
         if n in self._dict:
-            return self._dict[(n)]
+            return self._dict[n]
         else:
             raise KeyError('Node not in the graph')
 
     def adjacent(self, n1, n2):
         """Check if 2 node has connection"""
         try:
-            return (n2) in self._dict[(n1)] or\
-             (n1) in self._dict[(n2)]
+            return n2 in self._dict[n1] or\
+             n1 in self._dict[n2]
         except KeyError:
             raise ValueError('Node not in the graph')
 
