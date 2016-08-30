@@ -127,7 +127,7 @@ class Graph(object):
         path_list = [start]
         visited_list = [start]
         current_node = start
-        while self.neighbors(current_node) != 0:
+        while len(self.neighbors(current_node)) != 0:
             for n in self.neighbors(current_node):
                 if n not in path_list:
                     path_list.append(n)
@@ -141,9 +141,11 @@ class Graph(object):
                     break
         return path_list
 
-    # def breadth_first_traversal_temp(self, start):
-        # path_list = [start]
-        # neighbors = self.neighbors(start)
-        # current_node = start
-        # while len(neighbors) != 0:
-            
+    def breadth_first_traversal_temp(self, start):
+        path_list = [start]
+        current_node = start
+        while len(self.neighbors(current_node)) != 0:
+            for n in neighbors:
+                if n not in path_list:
+                    path_list.append(n)
+                
