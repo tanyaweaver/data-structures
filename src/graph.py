@@ -122,3 +122,22 @@ class Graph(object):
                 else:
                     flag1 = False
         return path_list
+
+    def depth_first_traversal_temp(self, start):
+        path_list = [start]
+        visited_list = [start]
+        current_node = start
+        while len(visited_list) != 0:
+            while self.neighbors(current_node) != 0:
+                for n in self.neighbors(current_node):
+                    if n not in path_list:
+                        path_list.append(n)
+                        visited_list.append(n)
+                        current_node = n
+                        break
+                else:
+                    try:
+                        current_node = visited_list.pop()
+                    except IndexError:
+                        break
+        return path_list
