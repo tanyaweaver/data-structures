@@ -146,3 +146,27 @@ class Graph(object):
             except IndexError:
                 break
         return path_list
+
+
+if __name__ == '__main__':
+    import time
+
+    gr = Graph((1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
+    edges = [
+        (1, 2), (2, 3), (3, 4), (4, 5), (5, 6), (6, 7), (7, 8),
+        (8, 9), (9, 10), (1, 3), (1, 4), (1, 5), (1, 7), (1, 8), (2, 5),
+        (2, 6), (2, 7), (2, 8), (2, 9), (3, 5), (3, 7), (3, 8), (3, 9)
+    ]
+    for edge in edges:
+        gr.add_edge(edge[0], edge[1])
+    start_b = time.time()
+    gr.breadth_first_traversal(1)
+    elapsed_b = time.time() - start_b
+    start_d = time.time()
+    gr.depth_first_traversal(1)
+    elapsed_d = time.time() - start_d
+    print(
+        "For a graph with 10 nodes and 23 edges "
+        "depth traversal takes {}, breadth traversal takes {}"
+        .format(elapsed_d, elapsed_b)
+    )
