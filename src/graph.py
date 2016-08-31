@@ -24,7 +24,7 @@ class Graph(object):
                 self._dict.setdefault(iterable, [])
 
     def add_node(self, n):
-        """Add a node to graph"""
+        """Add a node to graph."""
         try:
             self._dict.setdefault(n, [])
         except TypeError as e:
@@ -35,7 +35,7 @@ class Graph(object):
                     raise
 
     def add_edge(self, n1, n2):
-        """Add a edge from n1 to n2"""
+        """Add a edge from n1 to n2."""
         new_node = self._dict.setdefault(n1, [])
         self._dict.setdefault(n2, [])
         if (n2) not in new_node:
@@ -44,11 +44,11 @@ class Graph(object):
             raise ValueError('This edge already exists.')
 
     def nodes(self):
-        """Show all nodes"""
+        """Show all nodes."""
         return self._dict.keys()
 
     def edges(self):
-        """Show all edges"""
+        """Show all edges."""
         list_key_value = self._dict.items()
         list_edges = []
         for pair in list_key_value:
@@ -57,7 +57,7 @@ class Graph(object):
         return list_edges
 
     def del_node(self, n):
-        """Delete a node from graph"""
+        """Delete a node from graph."""
         if (n) in self._dict:
             del self._dict[n]
             for key in self._dict:
@@ -68,7 +68,7 @@ class Graph(object):
             raise KeyError('No such node in the graph.')
 
     def del_edge(self, n1, n2):
-        """Delete a edge from n1 to n2"""
+        """Delete a edge from n1 to n2."""
         try:
             self._dict[n1].remove(n2)
         except KeyError as e:
@@ -76,14 +76,14 @@ class Graph(object):
             raise
 
     def has_node(self, n):
-        """Check if n is a node of graph"""
+        """Check if n is a node of graph."""
         if n in self._dict.keys():
             return True
         else:
             return False
 
     def neighbors(self, n):
-        """Return a list of nodes that have edge connect to n"""
+        """Return a list of nodes that have edge connect to n."""
         try:
             return self._dict[n]
         except KeyError as e:
@@ -91,7 +91,7 @@ class Graph(object):
             raise
 
     def adjacent(self, n1, n2):
-        """Check if 2 node has connection"""
+        """Check if 2 nodes has connection."""
         try:
             return n2 in self._dict[n1] or\
              n1 in self._dict[n2]

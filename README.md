@@ -7,6 +7,7 @@
 * Deque
 * Binary Heap
 * Graph
+* Graph Traversal
 
 # Instructions
 ## Testing
@@ -67,4 +68,12 @@ To use graph
 from graph import Graph
 my_gr = Graph([1, 2, 3]) # => {'1': [], '2': [], '3': [])
 my_gr.add_edge((1, 2), (2, 3), (3, 2)) # => {'1': ['2'], '2': ['3'], '3': ['2'])
+```
+
+To use graph traversal
+```python
+from graph import Graph
+my_gr = Graph([1, 2, 3])
+my_gr.depth_first_traversal(1) = [1, 2, 3]
+my_gr.breadth_first_traversal(1) = [1, 2, 3]
 ```

@@ -120,6 +120,9 @@ BREADTH_TR = [
 
 @pytest.mark.parametrize('iterable, start, edges, path_list', DEPTH_TR)
 def test_depth_first_traversal(iterable, start, edges, path_list):
+    """
+    Test whether depth_first_traversal() returns the expected path.
+    """
     gr = Graph(iterable)
     for edge in edges:
         gr.add_edge(edge[0], edge[1])
@@ -128,6 +131,9 @@ def test_depth_first_traversal(iterable, start, edges, path_list):
 
 @pytest.mark.parametrize('iterable, start, edges, path_list', BREADTH_TR)
 def test_breadth_first_traversal(iterable, start, edges, path_list):
+    """
+    Test whether breadth_first_traversal() returns the expected path.
+    """
     gr = Graph(iterable)
     for edge in edges:
         gr.add_edge(edge[0], edge[1])
@@ -135,12 +141,20 @@ def test_breadth_first_traversal(iterable, start, edges, path_list):
 
 
 def test_d_traverse_empty_error():
+    """
+    Test whether depth_first_traversal() raises a ValueError
+    when the traversal is attempted on an empty graph.
+    """
     with pytest.raises(ValueError):
         gr = Graph()
         gr.depth_first_traversal(1)
 
 
 def test_b_traverse_empty_error():
+    """
+    Test whether breadth_first_traversal() raises a ValueError
+    when the traversal is attempted on an empty graph.
+    """
     with pytest.raises(ValueError):
         gr = Graph()
         gr.breadth_first_traversal(1)
