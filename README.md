@@ -74,6 +74,9 @@ To use graph traversal
 ```python
 from graph import Graph
 my_gr = Graph([1, 2, 3])
+my_gr.add_edge(1, 2)
+my_gr.add_edge(2, 3)
+my_gr.add_edge(3, 2)
 my_gr.depth_first_traversal(1) = [1, 2, 3]
 my_gr.breadth_first_traversal(1) = [1, 2, 3]
 ```

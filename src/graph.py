@@ -149,9 +149,8 @@ class Graph(object):
 
 
 if __name__ == '__main__':
-    import time
-
-    gr = Graph((1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
+    iterable = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+    gr = Graph(iterable)
     edges = [
         (1, 2), (2, 3), (3, 4), (4, 5), (5, 6), (6, 7), (7, 8),
         (8, 9), (9, 10), (1, 3), (1, 4), (1, 5), (1, 7), (1, 8), (2, 5),
@@ -159,14 +158,10 @@ if __name__ == '__main__':
     ]
     for edge in edges:
         gr.add_edge(edge[0], edge[1])
-    start_b = time.time()
-    gr.breadth_first_traversal(1)
-    elapsed_b = time.time() - start_b
-    start_d = time.time()
-    gr.depth_first_traversal(1)
-    elapsed_d = time.time() - start_d
+    breadth = gr.breadth_first_traversal(1)
+    depth = gr.depth_first_traversal(1)
     print(
-        "For a graph with 10 nodes and 23 edges "
-        "depth traversal takes {}, breadth traversal takes {}"
-        .format(elapsed_d, elapsed_b)
+        "For a graph with nodes {} \n and edges\n {}\n"
+        "the results are:\n   depth traversal: {},\n   breadth traversal: {}."
+        .format(iterable, edges, depth, breadth)
     )
