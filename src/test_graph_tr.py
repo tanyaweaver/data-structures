@@ -125,7 +125,7 @@ def test_depth_first_traversal(iterable, start, edges, path_list):
     """
     gr = Graph(iterable)
     for edge in edges:
-        gr.add_edge(edge[0], edge[1])
+        gr.add_edge(edge[0], edge[1], 10)
     assert gr.depth_first_traversal(start) == path_list
 
 
@@ -136,7 +136,7 @@ def test_breadth_first_traversal(iterable, start, edges, path_list):
     """
     gr = Graph(iterable)
     for edge in edges:
-        gr.add_edge(edge[0], edge[1])
+        gr.add_edge(edge[0], edge[1], 10)
     assert gr.breadth_first_traversal(start) == path_list
 
 

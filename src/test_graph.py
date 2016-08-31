@@ -50,14 +50,14 @@ DEL_LENGTH = zip(INIT_VAL, ADD_NODE, LENGTH)
 ADD_EDGE = [
     (
         [1, 2, 3],
-        ((1, 2), (1, 3), (2, 1), (2, 3), (3, 1), (3, 2)),
+        ((1, 2, 10), (1, 3, 5), (2, 1, 7), (2, 3, 2), (3, 1, 20), (3, 2, 6)),
     ),
 ]
 
 ADD_EDGE_ALREADY_EXIST = [
     (
         [1, 2, 3],
-        ((1, 2), (1, 3), (2, 1), (2, 3), (3, 1), (3, 2)),
+        ((1, 2, 10), (1, 3, 5), (2, 1, 7), (2, 3, 2), (3, 1, 20), (3, 2, 6)),
         ((1, 2), (2, 3), (3, 2))
     ),
 ]
@@ -198,9 +198,22 @@ def test_add_edges(iterable, edges):
     """
     gr = Graph(iterable)
     for edge in edges:
-        gr.add_edge(edge[0], edge[1])
+        gr.add_edge(edge[0], edge[1], edge[2])
     for edge in edges:
-            assert edge[1] in gr._dict[edge[0]]
+        assert (edge[1], edge[2]) in gr._dict[edge[0]]
+
+
+@pytest.mark.parametrize('iterable, edges', ADD_EDGE)
+def test_add_edges_weight(iterable, edges):
+    """
+    Test that .add_edges(n1, n2) results in the addition of n2
+    to the neighbors' list of n1.
+    """
+    gr = Graph(iterable)
+    for edge in edges:
+        gr.add_edge(edge[0], edge[1], edge[2])
+    for edge in edges:
+        assert edge[2] in [x[1] for x in gr._dict[edge[0]]]
 
 
 @pytest.mark.parametrize('iterable, edges', ADD_EDGE)
@@ -211,7 +224,7 @@ def test_add_edges_list_len(iterable, edges):
     """
     gr = Graph(iterable)
     for edge in edges:
-        gr.add_edge(edge[0], edge[1])
+        gr.add_edge(edge[0], edge[1], 10)
     for key in gr._dict:
         assert len(gr._dict[key]) == 2
 
@@ -224,10 +237,10 @@ def test_add_edges_already_exist(iterable, edges, more_edges):
     """
     gr = Graph(iterable)
     for edge in edges:
-            gr.add_edge(edge[0], edge[1])
+            gr.add_edge(edge[0], edge[1], 10)
     with pytest.raises(ValueError):
         for edge in more_edges:
-            gr.add_edge(edge[0], edge[1])
+            gr.add_edge(edge[0], edge[1], 10)
 
 
 @pytest.mark.parametrize('iterable, edges', ADD_EDGE)
@@ -235,9 +248,9 @@ def test_edges(iterable, edges):
     """Test whether .edges() returns expected edges."""
     gr = Graph(iterable)
     for edge in edges:
-        gr.add_edge(edge[0], edge[1])
+        gr.add_edge(edge[0], edge[1], edge[2])
     for edge in edges:
-        assert (edge[0], edge[1]) in gr.edges()
+        assert (edge[0], edge[1], edge[2]) in gr.edges()
 
 
 @pytest.mark.parametrize('iterable, add_node', ITER_ADD_NODE)
@@ -316,8 +329,8 @@ def test_del_node_edges():
     """
     gr = Graph([1, 2, 3, 4])
     gr.add_node(100)
-    gr.add_edge(1, 100)
-    gr.add_edge(2, 100)
+    gr.add_edge(1, 100, 10)
+    gr.add_edge(2, 100, 10)
     gr.del_node(100)
     for edge in gr.edges():
         assert 100 not in edge
@@ -326,15 +339,15 @@ def test_del_node_edges():
 def test_del_edge():
     """Test if del_edge delete the edge."""
     g = Graph()
-    g.add_edge(3, 4)
-    g.add_edge(3, 5)
-    g.add_edge(3, 6)
-    g.add_edge(7, 8)
+    g.add_edge(3, 4, 10)
+    g.add_edge(3, 5, 10)
+    g.add_edge(3, 6, 10)
+    g.add_edge(7, 8, 10)
     g.del_edge(7, 8)
     assert g.edges() == [
-            (3, 4),
-            (3, 5),
-            (3, 6),
+            (3, 4, 10),
+            (3, 5, 10),
+            (3, 6, 10),
     ]
 
 
@@ -357,7 +370,7 @@ def test_has_node(iterable, n, result):
 def test_neighbors(iterable, n1, n2):
     """Test make sure neighbors metho return correct neighbors."""
     g = Graph(iterable)
-    g.add_edge(n1, n2)
+    g.add_edge(n1, n2, 10)
     assert n2 in g.neighbors(n1)
 
 
@@ -380,7 +393,7 @@ def test_adjacent_false(iterable, n1, n2, result):
 def test_adjacent(iterable, n1, n2, result):
     """Test if 2 nodes are ajacent to one another."""
     g = Graph(iterable)
-    g.add_edge(n1, n2)
+    g.add_edge(n1, n2, 10)
     assert g.adjacent(n1, n2) == result
 
 

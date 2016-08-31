@@ -34,14 +34,15 @@ class Graph(object):
                         )
                     raise
 
-    def add_edge(self, n1, n2):
+    def add_edge(self, n1, n2, weight):
         """Add a edge from n1 to n2."""
         new_node = self._dict.setdefault(n1, [])
         self._dict.setdefault(n2, [])
-        if (n2) not in new_node:
-            new_node.append(n2)
+        for tup in new_node:
+            if n2 == tup[0]:
+                raise ValueError('This edge already exists.')
         else:
-            raise ValueError('This edge already exists.')
+            new_node.append((n2, weight))
 
     def nodes(self):
         """Show all nodes."""
@@ -52,25 +53,27 @@ class Graph(object):
         list_key_value = self._dict.items()
         list_edges = []
         for pair in list_key_value:
-            for node in pair[1]:
-                list_edges.append((pair[0], node),)
+            for tup in pair[1]:
+                list_edges.append((pair[0], tup[0], tup[1]),)
         return list_edges
 
     def del_node(self, n):
         """Delete a node from graph."""
-        if (n) in self._dict:
+        if n in self._dict:
             del self._dict[n]
             for key in self._dict:
-                if (n) in self._dict[key]:
-                    node_value = self._dict[key]
-                    node_value.remove(n)
+                for tup in self._dict[key]:
+                    if n in tup:
+                        self._dict[key].remove(tup)
         else:
             raise KeyError('No such node in the graph.')
 
     def del_edge(self, n1, n2):
         """Delete a edge from n1 to n2."""
         try:
-            self._dict[n1].remove(n2)
+            for tup in self._dict[n1]:
+                if n2 in tup:
+                    self._dict[n1].remove(tup)
         except KeyError as e:
             e.args = ('No such edge exists',)
             raise
@@ -85,7 +88,7 @@ class Graph(object):
     def neighbors(self, n):
         """Return a list of nodes that have edge connect to n."""
         try:
-            return self._dict[n]
+            return [x[0] for x in self._dict[n]]
         except KeyError as e:
             e.agrs = ('Node not in the graph',)
             raise
@@ -93,8 +96,9 @@ class Graph(object):
     def adjacent(self, n1, n2):
         """Check if 2 nodes has connection."""
         try:
-            return n2 in self._dict[n1] or\
-             n1 in self._dict[n2]
+            n1_neighbors = [x[0] for x in self._dict[n1]]
+            n2_neighbors = [x[0] for x in self._dict[n2]]
+            return n2 in n1_neighbors or n1 in n2_neighbors
         except KeyError as e:
             e.agrs = ('Node not in the graph',)
             raise
