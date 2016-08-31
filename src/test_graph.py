@@ -324,6 +324,7 @@ def test_del_node_edges():
 
 
 def test_del_edge():
+    """Test if del_edge delete the edge"""
     g = Graph()
     g.add_edge(3, 4)
     g.add_edge(3, 5)
@@ -339,6 +340,7 @@ def test_del_edge():
 
 @pytest.mark.parametrize('iterable, n', DEL_EDGE_ERROR)
 def test_del_edge_error(iterable, n):
+    """Test if del_edge raise correct error when node is not in graph"""
     g = Graph(iterable)
     with pytest.raises(KeyError):
         g.del_edge(n, 'random')
@@ -346,12 +348,14 @@ def test_del_edge_error(iterable, n):
 
 @pytest.mark.parametrize('iterable, n, result', HAS_NODE_TABLE)
 def test_has_node(iterable, n, result):
+    """Test if has_node working correctly"""
     g = Graph(iterable)
     assert g.has_node(n) == result
 
 
 @pytest.mark.parametrize('iterable, n1, n2', NEIGHBORS_TABLE)
 def test_neighbors(iterable, n1, n2):
+    """Test make sure neighbors metho return correct neighbors"""
     g = Graph(iterable)
     g.add_edge(n1, n2)
     assert n2 in g.neighbors(n1)
@@ -359,6 +363,7 @@ def test_neighbors(iterable, n1, n2):
 
 @pytest.mark.parametrize('iterable, n', NEIGHBORS_ERROR_TABLE)
 def test_neighbors_error(iterable, n):
+    """Test to make sure neighbors method raise correct err"""
     g = Graph(iterable)
     with pytest.raises(KeyError):
         g.neighbors(n)
@@ -366,12 +371,14 @@ def test_neighbors_error(iterable, n):
 
 @pytest.mark.parametrize('iterable, n1, n2, result', ADJACENT_TABLE)
 def test_adjacent_false(iterable, n1, n2, result):
+    """Test if nodes are not ajacent to one another"""
     g = Graph(iterable)
     assert g.adjacent(n1, n2) == result
 
 
 @pytest.mark.parametrize('iterable, n1, n2, result', ADJACENT_TABLE1)
 def test_adjacent(iterable, n1, n2, result):
+    """Test if 2 nodes are ajacent to one another""" 
     g = Graph(iterable)
     g.add_edge(n1, n2)
     assert g.adjacent(n1, n2) == result
@@ -379,6 +386,7 @@ def test_adjacent(iterable, n1, n2, result):
 
 @pytest.mark.parametrize('iterable, n1, n2', ADJACENT_ERROR_TABLE)
 def test_adjacent_error(iterable, n1, n2):
+    """Test if adjacent method raise appropriate error"""
     g = Graph(iterable)
     with pytest.raises(KeyError):
         g.adjacent(n1, n2)
