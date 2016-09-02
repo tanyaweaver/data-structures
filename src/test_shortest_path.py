@@ -8,10 +8,10 @@ from graph import Graph
 ITERABLE = [1, 2, 3, 4, 5, 6]
 EDGES = [
     (1, 2, 4), (1, 3, 3), (1, 5, 2),
-    (2, 3, 1), (2, 5, 6), (2, 6, 4),
-    (3, 5, 2),
-    (4, 1, 3), (4, 3, 2), (4, 5, 1),
-    (5, 1, 4), (5, 2, 7), (5, 3, 5), (5, 6, 2)
+    (2, 4, 2),
+    (3, 4, 3),
+    (4, 6, 2),
+    (5, 3, 4),
     ]
 
 
@@ -45,3 +45,6 @@ def test_neighbors_weight(node, neighb_wt, gr):
     associated with the edge to it.
     """
     assert gr.neighbors_weight(node) == neighb_wt
+
+def test_short_path_dijkstras(gr):
+    assert gr.short_path_dijkstras(1, 6) == {}
