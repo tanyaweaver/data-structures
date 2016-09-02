@@ -186,7 +186,17 @@ class Graph(object):
                     current_node = node[0]
                     cur_node_tent_cost = node[1][0]
                     break
-        return dict_neighb
+        # figuring out the path to n2, in progress
+        backwards_sequence = [n2]
+        next_node_to_append = n2
+        while next_node_to_append != '':
+            backwards_sequence.append(dict_neighb[next_node_to_append][1])
+            next_node_to_append = dict_neighb[next_node_to_append][1]
+        
+        path = reversed(backwards_sequence)
+
+
+        return path
 
 
 
