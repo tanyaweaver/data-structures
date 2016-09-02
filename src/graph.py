@@ -201,19 +201,21 @@ class Graph(object):
 
 
 
-    def shortest_path_dijkstras_temp(self, start, end):
+    def shortest_path_dijkstras(self, start, end):
         if not self.has_node(start) and not self.has_node(end):
             raise ValueError('Node(s) is not in the graph')
-        tentative_cost = {x: {'cost': float('inf'), 'path': None} for x in self._dict.keys()}
+        tentative_cost = {
+            x: {'cost': float('inf'), 'path': None} for x in self._dict.keys()
+        }
         tentative_cost[start]['cost'] = 0
         current_node = start
         pending_list = deque()
+        pending_list.append(start)
         visited_list = []
-        while len(self.neighbors_weight(current_node)) > 0:
+        while len(pending_list) > 0 and end not in visited_list:
             for n in sorted(
                     self.neighbors_weight(current_node),
-                    key=lambda x: x[1],
-                    reverse=True
+                    key=lambda x: x[1]
             ):
                 if n[0] not in visited_list: pending_list.append(n[0])
                 if tentative_cost[n[0]]['cost'] >\
@@ -230,8 +232,12 @@ class Graph(object):
             raise ValueError(
                     'No path start from {} and end at {}'.format(start, end)
                 )
-        else:
-            return tentative_cost[end]
+        path = []
+        next_node_to_insert = end
+        while next_node_to_insert is not None:
+            path.insert(0, next_node_to_insert)
+            next_node_to_insert = tentative_cost[next_node_to_insert]['path']
+        return path, tentative_cost[end]['cost']
 
 
 if __name__ == '__main__':
