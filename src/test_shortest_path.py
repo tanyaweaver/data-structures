@@ -54,4 +54,5 @@ def test_short_path_dijkstras(gr):
 
 def test_shortest_path_dijkstras_temp(gr):
     print(gr.edges())
-    assert gr.shortest_path_dijkstras_temp(1, 6) == 4
+    assert gr.shortest_path_dijkstras_temp(1, 4)['cost'] == 6
+    assert gr.shortest_path_dijkstras_temp(1, 4)['path'] == 2

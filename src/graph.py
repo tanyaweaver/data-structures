@@ -204,8 +204,8 @@ class Graph(object):
     def shortest_path_dijkstras_temp(self, start, end):
         if not self.has_node(start) and not self.has_node(end):
             raise ValueError('Node(s) is not in the graph')
-        tentative_cost = dict.fromkeys(self._dict, float('inf'))
-        tentative_cost[start] = 0
+        tentative_cost = {x: {'cost': float('inf'), 'path': None} for x in self._dict.keys()}
+        tentative_cost[start]['cost'] = 0
         current_node = start
         pending_list = deque()
         visited_list = []
@@ -216,14 +216,17 @@ class Graph(object):
                     reverse=True
             ):
                 if n[0] not in visited_list: pending_list.append(n[0])
-                if tentative_cost[n[0]] > tentative_cost[current_node] + n[1]:
-                    tentative_cost[n[0]] = tentative_cost[current_node] + n[1]
+                if tentative_cost[n[0]]['cost'] >\
+                        tentative_cost[current_node]['cost'] + n[1]:
+                    tentative_cost[n[0]]['cost'] =\
+                            tentative_cost[current_node]['cost'] + n[1]
+                    tentative_cost[n[0]]['path'] = current_node
             visited_list.append(current_node)
-            current_node = pending_list.popleft()
-            # import pdb; pdb.set_trace()
-            if current_node == end:
+            try:
+                current_node = pending_list.popleft()
+            except IndexError:
                 break
-        if tentative_cost[end] == float('inf'):
+        if tentative_cost[end]['cost'] == float('inf'):
             raise ValueError(
                     'No path start from {} and end at {}'.format(start, end)
                 )
