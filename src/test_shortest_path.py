@@ -47,5 +47,11 @@ def test_neighbors_weight(node, neighb_wt, gr):
     """
     assert gr.neighbors_weight(node) == neighb_wt
 
+
 def test_short_path_dijkstras(gr):
     assert gr.short_path_dijkstras(1, 2) == [1, 2]
+
+
+def test_shortest_path_dijkstras_temp(gr):
+    print(gr.edges())
+    assert gr.shortest_path_dijkstras_temp(1, 6) == 4

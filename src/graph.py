@@ -2,7 +2,7 @@
 # -*- coding: utf -8 -*-
 
 from __future__ import unicode_literals, division
-
+from collections import deque
 
 class Graph(object):
     """Defining class Graph."""
@@ -201,8 +201,34 @@ class Graph(object):
 
 
 
-
-
+    def shortest_path_dijkstras_temp(self, start, end):
+        if not self.has_node(start) and not self.has_node(end):
+            raise ValueError('Node(s) is not in the graph')
+        tentative_cost = dict.fromkeys(self._dict, float('inf'))
+        tentative_cost[start] = 0
+        current_node = start
+        pending_list = deque()
+        visited_list = []
+        while len(self.neighbors_weight(current_node)) > 0:
+            for n in sorted(
+                    self.neighbors_weight(current_node),
+                    key=lambda x: x[1],
+                    reverse=True
+            ):
+                if n[0] not in visited_list: pending_list.append(n[0])
+                if tentative_cost[n[0]] > tentative_cost[current_node] + n[1]:
+                    tentative_cost[n[0]] = tentative_cost[current_node] + n[1]
+            visited_list.append(current_node)
+            current_node = pending_list.popleft()
+            # import pdb; pdb.set_trace()
+            if current_node == end:
+                break
+        if tentative_cost[end] == float('inf'):
+            raise ValueError(
+                    'No path start from {} and end at {}'.format(start, end)
+                )
+        else:
+            return tentative_cost[end]
 
 
 if __name__ == '__main__':
@@ -214,7 +240,7 @@ if __name__ == '__main__':
         (2, 6), (2, 7), (2, 8), (2, 9), (3, 5), (3, 7), (3, 8), (3, 9)
     ]
     for edge in edges:
-        gr.add_edge(edge[0], edge[1])
+        gr.add_edge(edge[0], edge[1], 10)
     breadth = gr.breadth_first_traversal(1)
     depth = gr.depth_first_traversal(1)
     print(
