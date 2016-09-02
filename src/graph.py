@@ -151,6 +151,42 @@ class Graph(object):
                 break
         return path_list
 
+    def neighbors_weight(self, n):
+        """
+        Return a list of neighbors of the node n and their weights
+        as a tuple (node, weight)."""
+        try:
+            return self._dict[n]
+        except KeyError as e:
+            e.agrs = ('Node not in the graph',)
+            raise
+
+
+    def short_path_dijkstras(self, n1, n2):
+        current_node = n1
+        cur_node_tent_cost = 0
+        dict_neighb = {}
+        visited_nodes = []
+        unvisited_nodes = self.nodes()
+        for tup in self.neighbors_weight(n1):
+            dict_neighb[tup[0]] = [float('inf'), '']
+        while len(unvisited_nodes) != 0:
+            for tup in self.neighbors_weight(n1):
+                new_tent_cost = tup[1] + cur_node_tent_cost
+                if new_tent_cost < dict_neighb[tup][0]:
+                    dict_neighb[tup[0]][0] = new_tent_cost
+                    dict_neighb[tup[0]][1] = current_node
+            visited_nodes.append(current_node)
+            unvisited_nodes.remove(current_node)
+            sorted_list_of_nodes = sorted(dict_neighb.keys(), lambda x: x[1][0])[0]
+            current_node = sorted_list_of_nodes[0]
+            cur_node_tent_cost = sorted_list_of_nodes[1]
+
+
+
+
+
+
 
 if __name__ == '__main__':
     iterable = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
