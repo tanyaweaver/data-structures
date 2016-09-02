@@ -170,8 +170,8 @@ class Graph(object):
         unvisited_nodes = list(self.nodes())
         for node in unvisited_nodes:
             dict_neighb[node] = [1000, '']
-        dict_neighb[n1] = [0, '']
-        #import pdb; pdb.set_trace()
+        dict_neighb[n1] = [0, 'start']
+     
         while len(unvisited_nodes) != 0:
             for tup in self.neighbors_weight(current_node):
                 new_tent_cost = tup[1] + cur_node_tent_cost
@@ -187,16 +187,17 @@ class Graph(object):
                     cur_node_tent_cost = node[1][0]
                     break
         # figuring out the path to n2, in progress
-        backwards_sequence = [n2]
+        backwards_sequence = []
         next_node_to_append = n2
-        while next_node_to_append != '':
-            backwards_sequence.append(dict_neighb[next_node_to_append][1])
+        #import pdb; pdb.set_trace()
+        while next_node_to_append != 'start':
+            backwards_sequence.append(next_node_to_append)
             next_node_to_append = dict_neighb[next_node_to_append][1]
-        
-        path = reversed(backwards_sequence)
+       
+        #path = reversed(backwards_sequence)
 
 
-        return path
+        return backwards_sequence
 
 
 
