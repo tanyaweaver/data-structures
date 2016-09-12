@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 import pytest
 from graph import Graph
 
-ITERABLE = [1, 2, 3, 4, 5, 6]
+ITERABLE = [1, 2, 3, 4, 5, 6, 7]
 EDGES = [
     (1, 2, 4), (1, 3, 3), (1, 5, 2),
     (2, 4, 2),
@@ -29,6 +29,12 @@ NEIGHB_WT = neighb_wt(ITERABLE, EDGES)
 
 NODE_NEIGHB_WT = zip(ITERABLE, NEIGHB_WT)
 
+SHORTEST_PATH_DIJKSTRAS_TABLE = [
+    (1, 2, ([1, 2], 4)),
+    (1, 3, ([1, 3], 3)),
+    (1, 6, ([1, 5, 6], 4)),
+]
+
 
 @pytest.fixture(scope='function')
 def gr():
@@ -50,4 +56,25 @@ def test_neighbors_weight(node, neighb_wt, gr):
 
 @pytest.mark.parametrize('start, end, result', SHORTEST_PATH_DIJKSTRAS_TABLE)
 def test_shortest_path_dijkstras(start, end, result, gr):
+    """
+    Test whether .shortest_path_dijkstras(start, end) returns
+    an expected path and total cost.
+    """
     assert gr.shortest_path_dijkstras(start, end) == result
+
+
+def test_error_if_no_path1(gr):
+    """
+    Test whether a Value Error is raised when there is no path between 2 nodes.
+    """
+    with pytest.raises(ValueError):
+        gr.shortest_path_dijkstras(3, 2)
+
+
+def test_error_if_no_path2(gr):
+    """
+     Test whether a Value Error is raised when there is no path between 2 nodes
+     (one of the nodes has no edges.)
+     """
+    with pytest.raises(ValueError):
+        gr.shortest_path_dijkstras(7, 2)
