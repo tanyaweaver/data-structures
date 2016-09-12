@@ -161,47 +161,11 @@ class Graph(object):
             e.agrs = ('Node not in the graph',)
             raise
 
-
-    def short_path_dijkstras(self, n1, n2):
-        current_node = n1
-        cur_node_tent_cost = 0
-        dict_neighb = {}
-        visited_nodes = []
-        unvisited_nodes = list(self.nodes())
-        for node in unvisited_nodes:
-            dict_neighb[node] = [1000, '']
-        dict_neighb[n1] = [0, 'start']
-     
-        while len(unvisited_nodes) != 0:
-            for tup in self.neighbors_weight(current_node):
-                new_tent_cost = tup[1] + cur_node_tent_cost
-                if new_tent_cost < dict_neighb[tup[0]][0]:
-                    dict_neighb[tup[0]][0] = new_tent_cost
-                    dict_neighb[tup[0]][1] = current_node
-            visited_nodes.append(current_node)
-            unvisited_nodes.remove(current_node)
-            list_of_neighb_min = sorted(dict_neighb.items(), key=lambda x: ((x[1])[0]))
-            for node in list_of_neighb_min:
-                if node[0] not in visited_nodes:
-                    current_node = node[0]
-                    cur_node_tent_cost = node[1][0]
-                    break
-        # figuring out the path to n2, in progress
-        backwards_sequence = []
-        next_node_to_append = n2
-        #import pdb; pdb.set_trace()
-        while next_node_to_append != 'start':
-            backwards_sequence.append(next_node_to_append)
-            next_node_to_append = dict_neighb[next_node_to_append][1]
-       
-        #path = reversed(backwards_sequence)
-
-
-        return backwards_sequence
-
-
-
     def shortest_path_dijkstras(self, start, end):
+        """
+        Find the shortest path between two nodes in the graph
+        with weighted edges,
+        """
         if not self.has_node(start) and not self.has_node(end):
             raise ValueError('Node(s) is not in the graph')
         tentative_cost = {

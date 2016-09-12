@@ -8,6 +8,7 @@
 * Binary Heap
 * Weighted Graph
 * Weighted Graph Traversal
+* Shortest path between two nodes in a graph
 
 # Instructions
 ## Testing
@@ -77,6 +78,15 @@ my_gr = Graph([1, 2, 3])
 my_gr.add_edge(1, 2, 10)
 my_gr.add_edge(2, 3, 5)
 my_gr.add_edge(3, 2, 20)
-my_gr.depth_first_traversal(1) = [1, 2, 3]
-my_gr.breadth_first_traversal(1) = [1, 2, 3]
+my_gr.depth_first_traversal(1) #=> [1, 2, 3]
+my_gr.breadth_first_traversal(1) #=> [1, 2, 3]
 ```
+
+To calculate the shortest path between 2 nodes in the graph:
+```python
+from graph import Graph
+my_gr = Graph([1, 2, 3])
+my_gr.add_edge(1, 2, 2)
+my_gr.add_edge(2, 3, 5)
+my_gr.add_edge(1, 3, 10)
+my_gr.shortest_path_dijkstras(1, 3) #=> (1, 2, 3), 7
